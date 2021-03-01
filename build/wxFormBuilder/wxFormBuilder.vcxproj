@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\sdk\plugin_interface\forms\wizard.cpp" />
+    <ClCompile Include="..\..\src\codegen\codegen.cpp" />
+    <ClCompile Include="..\..\src\codegen\codeparser.cpp" />
+    <ClCompile Include="..\..\src\codegen\codewriter.cpp" />
+    <ClCompile Include="..\..\src\codegen\cppcg.cpp" />
+    <ClCompile Include="..\..\src\codegen\luacg.cpp" />
+    <ClCompile Include="..\..\src\codegen\phpcg.cpp" />
+    <ClCompile Include="..\..\src\codegen\pythoncg.cpp" />
+    <ClCompile Include="..\..\src\codegen\xrccg.cpp" />
+    <ClCompile Include="..\..\src\dbg_stack_trace\stack.cpp" />
+    <ClCompile Include="..\..\src\maingui.cpp" />
+    <ClCompile Include="..\..\src\md5\md5.cc" />
+    <ClCompile Include="..\..\src\model\database.cpp" />
+    <ClCompile Include="..\..\src\model\objectbase.cpp" />
+    <ClCompile Include="..\..\src\model\types.cpp" />
+    <ClCompile Include="..\..\src\model\xrcfilter.cpp" />
+    <ClCompile Include="..\..\src\rad\about.cpp" />
+    <ClCompile Include="..\..\src\rad\appdata.cpp" />
+    <ClCompile Include="..\..\src\rad\bitmaps.cpp" />
+    <ClCompile Include="..\..\src\rad\cmdproc.cpp" />
+    <ClCompile Include="..\..\src\rad\codeeditor\codeeditor.cpp" />
+    <ClCompile Include="..\..\src\rad\cpppanel\cpppanel.cpp" />
+    <ClCompile Include="..\..\src\rad\customkeys.cpp" />
+    <ClCompile Include="..\..\src\rad\dataobject\dataobject.cpp" />
+    <ClCompile Include="..\..\src\rad\designer\innerframe.cpp" />
+    <ClCompile Include="..\..\src\rad\designer\menubar.cpp" />
+    <ClCompile Include="..\..\src\rad\designer\resizablepanel.cpp" />
+    <ClCompile Include="..\..\src\rad\designer\visualeditor.cpp" />
+    <ClCompile Include="..\..\src\rad\designer\visualobj.cpp" />
+    <ClCompile Include="..\..\src\rad\genericpanel.cpp" />
+    <ClCompile Include="..\..\src\rad\geninheritclass\geninhertclass.cpp" />
+    <ClCompile Include="..\..\src\rad\geninheritclass\geninhertclass_gui.cpp" />
+    <ClCompile Include="..\..\src\rad\inspector\objinspect.cpp" />
+    <ClCompile Include="..\..\src\rad\inspector\wxfbadvprops.cpp" />
+    <ClCompile Include="..\..\src\rad\luapanel\luapanel.cpp" />
+    <ClCompile Include="..\..\src\rad\mainframe.cpp" />
+    <ClCompile Include="..\..\src\rad\menueditor.cpp" />
+    <ClCompile Include="..\..\src\rad\objecttree\objecttree.cpp" />
+    <ClCompile Include="..\..\src\rad\palette.cpp" />
+    <ClCompile Include="..\..\src\rad\phppanel\phppanel.cpp" />
+    <ClCompile Include="..\..\src\rad\pythonpanel\pythonpanel.cpp" />
+    <ClCompile Include="..\..\src\rad\title.cpp" />
+    <ClCompile Include="..\..\src\rad\wxfbevent.cpp" />
+    <ClCompile Include="..\..\src\rad\wxfbmanager.cpp" />
+    <ClCompile Include="..\..\src\rad\xrcpanel\xrcpanel.cpp" />
+    <ClCompile Include="..\..\src\rad\xrcpreview\xrcpreview.cpp" />
+    <ClCompile Include="..\..\src\utils\annoyingdialog.cpp" />
+    <ClCompile Include="..\..\src\utils\filetocarray.cpp" />
+    <ClCompile Include="..\..\src\utils\m_wxfb.cpp" />
+    <ClCompile Include="..\..\src\utils\stringutils.cpp" />
+    <ClCompile Include="..\..\src\utils\typeconv.cpp" />
+    <ClCompile Include="..\..\src\utils\wxfbipc.cpp" />
+    <ClCompile Include="..\..\ticpp\ticpp.cpp" />
+    <ClCompile Include="..\..\ticpp\tinystr.cpp" />
+    <ClCompile Include="..\..\ticpp\tinyxml.cpp" />
+    <ClCompile Include="..\..\ticpp\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\ticpp\tinyxmlparser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\sdk\plugin_interface\component.h" />
+    <ClInclude Include="..\..\sdk\plugin_interface\fontcontainer.h" />
+    <ClInclude Include="..\..\sdk\plugin_interface\forms\wizard.h" />
+    <ClInclude Include="..\..\sdk\plugin_interface\plugin.h" />
+    <ClInclude Include="..\..\sdk\plugin_interface\xrcconv.h" />
+    <ClInclude Include="..\..\src\codegen\codegen.h" />
+    <ClInclude Include="..\..\src\codegen\codeparser.h" />
+    <ClInclude Include="..\..\src\codegen\codewriter.h" />
+    <ClInclude Include="..\..\src\codegen\cppcg.h" />
+    <ClInclude Include="..\..\src\codegen\luacg.h" />
+    <ClInclude Include="..\..\src\codegen\phpcg.h" />
+    <ClInclude Include="..\..\src\codegen\pythoncg.h" />
+    <ClInclude Include="..\..\src\codegen\xrccg.h" />
+    <ClInclude Include="..\..\src\dbg_stack_trace\stack.hpp" />
+    <ClInclude Include="..\..\src\maingui.h" />
+    <ClInclude Include="..\..\src\md5\md5.hh" />
+    <ClInclude Include="..\..\src\model\database.h" />
+    <ClInclude Include="..\..\src\model\objectbase.h" />
+    <ClInclude Include="..\..\src\model\types.h" />
+    <ClInclude Include="..\..\src\model\xrcfilter.h" />
+    <ClInclude Include="..\..\src\pch.h" />
+    <ClInclude Include="..\..\src\rad\about.h" />
+    <ClInclude Include="..\..\src\rad\appdata.h" />
+    <ClInclude Include="..\..\src\rad\auitabart.h" />
+    <ClInclude Include="..\..\src\rad\bitmaps.h" />
+    <ClInclude Include="..\..\src\rad\cmdproc.h" />
+    <ClInclude Include="..\..\src\rad\codeeditor\codeeditor.h" />
+    <ClInclude Include="..\..\src\rad\cpppanel\cpppanel.h" />
+    <ClInclude Include="..\..\src\rad\customkeys.h" />
+    <ClInclude Include="..\..\src\rad\dataobject\dataobject.h" />
+    <ClInclude Include="..\..\src\rad\designer\innerframe.h" />
+    <ClInclude Include="..\..\src\rad\designer\menubar.h" />
+    <ClInclude Include="..\..\src\rad\designer\resizablepanel.h" />
+    <ClInclude Include="..\..\src\rad\designer\visualeditor.h" />
+    <ClInclude Include="..\..\src\rad\designer\visualobj.h" />
+    <ClInclude Include="..\..\src\rad\designer\window_buttons.h" />
+    <ClInclude Include="..\..\src\rad\genericpanel.h" />
+    <ClInclude Include="..\..\src\rad\geninheritclass\geninhertclass.h" />
+    <ClInclude Include="..\..\src\rad\geninheritclass\geninhertclass_gui.h" />
+    <ClInclude Include="..\..\src\rad\inspector\objinspect.h" />
+    <ClInclude Include="..\..\src\rad\inspector\wxfbadvprops.h" />
+    <ClInclude Include="..\..\src\rad\luapanel\luapanel.h" />
+    <ClInclude Include="..\..\src\rad\mainframe.h" />
+    <ClInclude Include="..\..\src\rad\menueditor.h" />
+    <ClInclude Include="..\..\src\rad\objecttree\objecttree.h" />
+    <ClInclude Include="..\..\src\rad\palette.h" />
+    <ClInclude Include="..\..\src\rad\phppanel\phppanel.h" />
+    <ClInclude Include="..\..\src\rad\pythonpanel\pythonpanel.h" />
+    <ClInclude Include="..\..\src\rad\title.h" />
+    <ClInclude Include="..\..\src\rad\wxfbevent.h" />
+    <ClInclude Include="..\..\src\rad\wxfbmanager.h" />
+    <ClInclude Include="..\..\src\rad\xrcpanel\xrcpanel.h" />
+    <ClInclude Include="..\..\src\rad\xrcpreview\xrcpreview.h" />
+    <ClInclude Include="..\..\src\utils\annoyingdialog.h" />
+    <ClInclude Include="..\..\src\utils\debug.h" />
+    <ClInclude Include="..\..\src\utils\filetocarray.h" />
+    <ClInclude Include="..\..\src\utils\stringutils.h" />
+    <ClInclude Include="..\..\src\utils\typeconv.h" />
+    <ClInclude Include="..\..\src\utils\wxfbdefs.h" />
+    <ClInclude Include="..\..\src\utils\wxfbexception.h" />
+    <ClInclude Include="..\..\src\utils\wxfbipc.h" />
+    <ClInclude Include="..\..\src\utils\wxlogstring.h" />
+    <ClInclude Include="..\..\ticpp\ticpp.h" />
+    <ClInclude Include="..\..\ticpp\ticppapi.h" />
+    <ClInclude Include="..\..\ticpp\ticpprc.h" />
+    <ClInclude Include="..\..\ticpp\tinystr.h" />
+    <ClInclude Include="..\..\ticpp\tinyxml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\sdk\plugin_interface\default.xpm" />
+    <None Include="..\..\sdk\plugin_interface\forms\wizard.fbp" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{e9726fc8-b34a-4634-9f27-e876695af622}</ProjectGuid>
+    <RootNamespace>wxFormBuilder</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;TIXML_USE_STL;TIXML_USE_TICPP;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)..\sdk\plugin_interface\;$(SolutionDir)..\ticpp\;$(SolutionDir)..\src\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);DbgHelp.lib;Ws2_32.lib;Comctl32.lib;Rpcrt4.lib;wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxexpat.lib;wxjpeg.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31u_qa.lib;wxmsw31u_ribbon.lib;wxmsw31u_richtext.lib;wxmsw31u_stc.lib;wxmsw31u_webview.lib;wxmsw31u_xrc.lib;wxpng.lib;wxregexu.lib;wxscintilla.lib;wxtiff.lib;wxzlib.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;TIXML_USE_STL;TIXML_USE_TICPP;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)..\sdk\plugin_interface\;$(SolutionDir)..\ticpp\;$(SolutionDir)..\src\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);DbgHelp.lib;Ws2_32.lib;Comctl32.lib;Rpcrt4.lib;wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxexpat.lib;wxjpeg.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31u_qa.lib;wxmsw31u_ribbon.lib;wxmsw31u_richtext.lib;wxmsw31u_stc.lib;wxmsw31u_webview.lib;wxmsw31u_xrc.lib;wxpng.lib;wxregexu.lib;wxscintilla.lib;wxtiff.lib;wxzlib.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;TIXML_USE_STL;TIXML_USE_TICPP;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)..\sdk\plugin_interface\;$(SolutionDir)..\ticpp\;$(SolutionDir)..\src\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);DbgHelp.lib;Ws2_32.lib;Comctl32.lib;Rpcrt4.lib;wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxexpat.lib;wxjpeg.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31u_qa.lib;wxmsw31u_ribbon.lib;wxmsw31u_richtext.lib;wxmsw31u_stc.lib;wxmsw31u_webview.lib;wxmsw31u_xrc.lib;wxpng.lib;wxregexu.lib;wxscintilla.lib;wxtiff.lib;wxzlib.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;TIXML_USE_STL;TIXML_USE_TICPP;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)..\sdk\plugin_interface\;$(SolutionDir)..\ticpp\;$(SolutionDir)..\src\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);DbgHelp.lib;Ws2_32.lib;Comctl32.lib;Rpcrt4.lib;wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxexpat.lib;wxjpeg.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_propgrid.lib;wxmsw31u_qa.lib;wxmsw31u_ribbon.lib;wxmsw31u_richtext.lib;wxmsw31u_stc.lib;wxmsw31u_webview.lib;wxmsw31u_xrc.lib;wxpng.lib;wxregexu.lib;wxscintilla.lib;wxtiff.lib;wxzlib.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
