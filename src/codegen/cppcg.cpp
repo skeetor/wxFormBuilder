@@ -146,7 +146,7 @@ wxString CppTemplateParser::ValueToCode( PropertyType type, wxString value )
 		}
 		case PT_BITLIST:
 		{
-			result = ( value.empty() ? wxT( "0" ) : value );
+			result = ( value.empty() ? wxString(wxT( "0" )) : value );
 			break;
 		}
 		case PT_WXPOINT:
@@ -188,12 +188,12 @@ wxString CppTemplateParser::ValueToCode( PropertyType type, wxString value )
 				const int pointSize = fontContainer.GetPointSize();
 
 				result = wxString::Format( "wxFont( %s, %s, %s, %s, %s, %s )",
-							((pointSize <= 0) ? "wxNORMAL_FONT->GetPointSize()" : (wxString() << pointSize)),
+							((pointSize <= 0) ? wxString(wxT("wxNORMAL_FONT->GetPointSize()")) : (wxString() << pointSize)),
 							TypeConv::FontFamilyToString( fontContainer.GetFamily() ),
 							font.GetStyleString(),
 							font.GetWeightString(),
 							( fontContainer.GetUnderlined() ? "true" : "false" ),
-							( fontContainer.m_faceName.empty() ? "wxEmptyString" : ("wxT(\"" + fontContainer.m_faceName + "\")") )
+							( fontContainer.m_faceName.empty() ? wxString(wxT("wxEmptyString")) : ("wxT(\"" + fontContainer.m_faceName + "\")") )
 						);
 			}
 			else

@@ -235,12 +235,12 @@ wxString LuaTemplateParser::ValueToCode( PropertyType type, wxString value )
 				const int pointSize = fontContainer.GetPointSize();
 
 				result = wxString::Format( "wx.wxFont( %s, %s, %s, %s, %s, %s )",
-							((pointSize <= 0) ? "wx.wxNORMAL_FONT:GetPointSize()" : (wxString() << pointSize)),
+							((pointSize <= 0) ? wxString(wxT("wx.wxNORMAL_FONT:GetPointSize()")) : (wxString() << pointSize)),
 							"wx." + TypeConv::FontFamilyToString( fontContainer.GetFamily() ),
 							"wx." + font.GetStyleString(),
 							"wx." + font.GetWeightString(),
 							( fontContainer.GetUnderlined() ? "True" : "False" ),
-							( fontContainer.m_faceName.empty() ? "\"\"" : ("\"" + fontContainer.m_faceName + "\"") )
+							( fontContainer.m_faceName.empty() ? wxString(wxT("\"\"")) : ("\"" + fontContainer.m_faceName + "\"") )
 						);
 			}
 			else

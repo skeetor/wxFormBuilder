@@ -154,8 +154,10 @@ wxObject* wxFBManager::GetWxObject( PObjectBase obj )
 	return m_visualEdit->GetWxObject( obj );
 }
 
-void wxFBManager::ModifyProperty( wxObject* wxobject, wxString property, wxString value, bool allowUndo )
-{
+#pragma warning(push)
+#pragma warning(disable : 4003) // #if not_defined treated as #if 0
+void wxFBManager::ModifyProperty(wxObject* wxobject, wxString property, wxString value,
+                                 bool allowUndo) {
 	CHECK_VISUAL_EDITOR()
 
 	// Prevent modified event in visual editor - no need to redraw when the change is happening in the editor!
@@ -184,6 +186,7 @@ void wxFBManager::ModifyProperty( wxObject* wxobject, wxString property, wxStrin
 		prop->SetValue( value );
 	}
 }
+#pragma warning(pop)
 
 bool wxFBManager::SelectObject( wxObject* wxobject )
 {

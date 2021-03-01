@@ -1,6 +1,7 @@
 build/???/
 build/premake/**/bin/
 build/premake/**/obj/
+build/packages/**
 output/bin/
 output/lib*/
 output/share/

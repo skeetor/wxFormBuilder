@@ -169,7 +169,7 @@ wxString PythonTemplateParser::ValueToCode( PropertyType type, wxString value )
 		}
 	case PT_BITLIST:
 		{
-			result = ( value.empty() ? wxT("0") : value );
+			result = (value.empty()) ? wxString(wxT("0")) : value;
 
 			wxString pred, bit;
 			wxStringTokenizer bits( result, wxT("|"), wxTOKEN_STRTOK );
@@ -227,12 +227,12 @@ wxString PythonTemplateParser::ValueToCode( PropertyType type, wxString value )
 				const int pointSize = fontContainer.GetPointSize();
 
 				result = wxString::Format( "wx.Font( %s, %s, %s, %s, %s, %s )",
-							((pointSize <= 0) ? "wx.NORMAL_FONT.GetPointSize()" : (wxString() << pointSize)),
+							((pointSize <= 0) ? wxString(wxT("wx.NORMAL_FONT.GetPointSize()")) : (wxString() << pointSize)),
 							TypeConv::FontFamilyToString( fontContainer.GetFamily() ).replace( 0, 2, "wx." ),
 							font.GetStyleString().replace( 0, 2, "wx." ),
 							font.GetWeightString().replace( 0, 2, "wx." ),
 							( fontContainer.GetUnderlined() ? "True" : "False" ),
-							( fontContainer.m_faceName.empty() ? "wx.EmptyString" : ("\"" + fontContainer.m_faceName + "\"") )
+							( fontContainer.m_faceName.empty() ? wxString(wxT("wx.EmptyString")) : wxString(wxT("\"") + fontContainer.m_faceName + wxT("\"")))
 						);
 			}
 			else
