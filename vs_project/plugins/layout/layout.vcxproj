@@ -104,7 +104,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)sdk\plugin_interface\;D:\src\ext\wxFormBuilder\src\ticpp\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)sdk\plugin_interface\;$(SolutionDir)src\ticpp\</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -127,7 +127,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)sdk\plugin_interface\;D:\src\ext\wxFormBuilder\src\ticpp\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)sdk\plugin_interface\;$(SolutionDir)src\ticpp\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,7 +149,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)sdk\plugin_interface\;D:\src\ext\wxFormBuilder\src\ticpp\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)sdk\plugin_interface\;$(SolutionDir)src\ticpp\</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -172,7 +172,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)sdk\plugin_interface\;D:\src\ext\wxFormBuilder\src\ticpp\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(SolutionDir)packages\wxWidgets.3.1.4\include;$(SolutionDir)packages\wxWidgets.3.1.4\lib\$(Platform)\$(Configuration)\mswu;$(SolutionDir)sdk\plugin_interface\;$(SolutionDir)src\ticpp\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
