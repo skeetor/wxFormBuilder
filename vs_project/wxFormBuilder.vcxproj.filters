@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\codegen">
+      <UniqueIdentifier>{3951c1a5-3ed5-4385-a76b-0cf5033efc14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\codegen">
+      <UniqueIdentifier>{e92adcfa-52a3-41c0-b06e-ef9531732a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\controls">
+      <UniqueIdentifier>{6d070a20-8858-42e4-8e92-423467820854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\controls">
+      <UniqueIdentifier>{9655c1d4-1da5-46e0-90ab-1dd251b936b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dbg_stack_trace">
+      <UniqueIdentifier>{cf714a27-e761-46e8-9d44-73fbc702e28d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\dbg_stack_trace">
+      <UniqueIdentifier>{a374761d-117e-4eaf-9868-ada9f15cdcbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\md5">
+      <UniqueIdentifier>{71cead1a-11bf-4cb4-b822-09079ede1993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\md5">
+      <UniqueIdentifier>{4f2e8412-c89c-41ab-b0cf-03758e88ed08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{0099338c-8155-4bb2-b3f3-b56de737b7e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{89e9d540-31bd-4d51-a16e-4d7fe9585b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad">
+      <UniqueIdentifier>{f5db1d9d-dc6f-4da5-837a-04857b831d16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad">
+      <UniqueIdentifier>{cf09b0e9-fdf6-45c4-9d53-add36459ddd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\codeeditor">
+      <UniqueIdentifier>{a38e5c2c-1426-41a0-a075-dda2af1d2b34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\codeeditor">
+      <UniqueIdentifier>{570e0d6a-13dc-44c2-a127-d25dbacba378}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\cpppanel">
+      <UniqueIdentifier>{4fa4bd18-2488-4cc3-bc87-62d468f20fca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\cpppanel">
+      <UniqueIdentifier>{3d865e91-93c0-4f24-8ba3-615f948ee814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\dataobject">
+      <UniqueIdentifier>{5116d340-571f-4616-a35b-bd2878935ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\dataobject">
+      <UniqueIdentifier>{e7d3cf1e-5fbc-444c-bafe-3ead0bc33095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\designer">
+      <UniqueIdentifier>{0d9950cb-09a8-45ff-868c-12c62a61aff9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\designer">
+      <UniqueIdentifier>{c27cb75a-45d7-4864-91ad-3a7d039a4f34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\geninheritclass">
+      <UniqueIdentifier>{ae320760-4ef2-4dd1-bec9-e0e84c70dec3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\geninheritclass">
+      <UniqueIdentifier>{806384b0-9e51-4417-b8ab-81a3a2b3aeb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\inspector">
+      <UniqueIdentifier>{c5ad782d-eeb4-46db-b69f-f39c0e7b3235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\inspector">
+      <UniqueIdentifier>{55b1269f-c29f-4440-b091-e5a2f957b6a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\luapanel">
+      <UniqueIdentifier>{4e9d14ed-fcb2-4a74-974c-573f80f185ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\luapanel">
+      <UniqueIdentifier>{e2ba358c-258d-491b-8a40-c5581530a41c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\objecttree">
+      <UniqueIdentifier>{286bfb67-abff-4d1d-b7a6-50dc41ffe276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\objecttree">
+      <UniqueIdentifier>{c946904f-b40a-4ddb-b13c-0500bf3bd8f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\phppanel">
+      <UniqueIdentifier>{7daf25dd-cd01-466e-be5a-fd2769cad1b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\phppanel">
+      <UniqueIdentifier>{994c69dd-910f-447b-99b9-a38f5d711009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\pythonpanel">
+      <UniqueIdentifier>{be29ec1c-bdaa-4f00-ba4e-89dee887ab68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\pythonpanel">
+      <UniqueIdentifier>{5b2f1317-1157-4438-8968-f14aae4f4fdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\xrcpanel">
+      <UniqueIdentifier>{228cf7b0-b4de-470a-b4da-41cb669a3715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\xrcpanel">
+      <UniqueIdentifier>{451caabe-af7f-4064-b209-45f7aab52430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\rad\xrcpreview">
+      <UniqueIdentifier>{f3fd257a-f561-45a6-8f1e-4a5763d77ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rad\xrcpreview">
+      <UniqueIdentifier>{10daf0db-6b3e-45c5-90dc-bfa4db39a709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{3122f76d-2093-4c4f-aa10-dd0e377ea14a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{f2c4e47c-4243-4c29-a3b4-aff32531fe54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ticpp">
+      <UniqueIdentifier>{19feca43-c24a-4cee-aee3-b16061ebcb7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ticpp">
+      <UniqueIdentifier>{635eab83-2050-40ae-bd8e-3fb7fcbefe0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sdk">
+      <UniqueIdentifier>{9f80f497-f4b6-4ef6-a4d6-1efb5b9fd336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\..\sdk\plugin_interface\forms">
+      <UniqueIdentifier>{d7380357-c5d9-476f-951b-eefb7f6d39e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sdk">
+      <UniqueIdentifier>{9811e59d-fd61-446a-881c-7e3e0df2ecee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\..\sdk\plugin_interface\forms">
+      <UniqueIdentifier>{9aa08fa2-2f38-48d5-b6f6-196de16fd951}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\maingui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\cpppanel\cpppanel.cpp">
+      <Filter>Source Files\rad\cpppanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\dataobject\dataobject.cpp">
+      <Filter>Source Files\rad\dataobject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\designer\innerframe.cpp">
+      <Filter>Source Files\rad\designer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\designer\menubar.cpp">
+      <Filter>Source Files\rad\designer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\designer\resizablepanel.cpp">
+      <Filter>Source Files\rad\designer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\designer\visualeditor.cpp">
+      <Filter>Source Files\rad\designer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\designer\visualobj.cpp">
+      <Filter>Source Files\rad\designer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\geninheritclass\geninhertclass.cpp">
+      <Filter>Source Files\rad\geninheritclass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\geninheritclass\geninhertclass_gui.cpp">
+      <Filter>Source Files\rad\geninheritclass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\inspector\objinspect.cpp">
+      <Filter>Source Files\rad\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\inspector\wxfbadvprops.cpp">
+      <Filter>Source Files\rad\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\luapanel\luapanel.cpp">
+      <Filter>Source Files\rad\luapanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\objecttree\objecttree.cpp">
+      <Filter>Source Files\rad\objecttree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\phppanel\phppanel.cpp">
+      <Filter>Source Files\rad\phppanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\pythonpanel\pythonpanel.cpp">
+      <Filter>Source Files\rad\pythonpanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\xrcpanel\xrcpanel.cpp">
+      <Filter>Source Files\rad\xrcpanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\xrcpreview\xrcpreview.cpp">
+      <Filter>Source Files\rad\xrcpreview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\about.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\appdata.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\bitmaps.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\cmdproc.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\customkeys.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\genericpanel.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\mainframe.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\menueditor.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\palette.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\title.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\wxfbevent.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\wxfbmanager.cpp">
+      <Filter>Source Files\rad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\annoyingdialog.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\filetocarray.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\m_wxfb.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\stringutils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\typeconv.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\wxfbipc.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sdk\plugin_interface\forms\wizard.cpp">
+      <Filter>Source Files\..\sdk\plugin_interface\forms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ticpp\ticpp.cpp">
+      <Filter>Source Files\ticpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ticpp\tinystr.cpp">
+      <Filter>Source Files\ticpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ticpp\tinyxml.cpp">
+      <Filter>Source Files\ticpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ticpp\tinyxmlerror.cpp">
+      <Filter>Source Files\ticpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ticpp\tinyxmlparser.cpp">
+      <Filter>Source Files\ticpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\codegen\codegen.cpp">
+      <Filter>Source Files\codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\codegen\codeparser.cpp">
+      <Filter>Source Files\codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\codegen\codewriter.cpp">
+      <Filter>Source Files\codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\codegen\cppcg.cpp">
+      <Filter>Source Files\codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\codegen\luacg.cpp">
+      <Filter>Source Files\codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\codegen\phpcg.cpp">
+      <Filter>Source Files\codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\codegen\pythoncg.cpp">
+      <Filter>Source Files\codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\codegen\xrccg.cpp">
+      <Filter>Source Files\codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\dbg_stack_trace\stack.cpp">
+      <Filter>Source Files\dbg_stack_trace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\md5\md5.cc">
+      <Filter>Source Files\md5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\model\database.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\model\objectbase.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\model\types.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\model\xrcfilter.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rad\codeeditor\codeeditor.cpp">
+      <Filter>Source Files\rad\codeeditor</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\maingui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\cpppanel\cpppanel.h">
+      <Filter>Header Files\rad\cpppanel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\dataobject\dataobject.h">
+      <Filter>Header Files\rad\dataobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\designer\innerframe.h">
+      <Filter>Header Files\rad\designer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\designer\menubar.h">
+      <Filter>Header Files\rad\designer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\designer\resizablepanel.h">
+      <Filter>Header Files\rad\designer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\designer\visualeditor.h">
+      <Filter>Header Files\rad\designer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\designer\visualobj.h">
+      <Filter>Header Files\rad\designer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\designer\window_buttons.h">
+      <Filter>Header Files\rad\designer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\geninheritclass\geninhertclass.h">
+      <Filter>Header Files\rad\geninheritclass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\geninheritclass\geninhertclass_gui.h">
+      <Filter>Header Files\rad\geninheritclass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\inspector\objinspect.h">
+      <Filter>Header Files\rad\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\inspector\wxfbadvprops.h">
+      <Filter>Header Files\rad\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\luapanel\luapanel.h">
+      <Filter>Header Files\rad\luapanel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\objecttree\objecttree.h">
+      <Filter>Header Files\rad\objecttree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\phppanel\phppanel.h">
+      <Filter>Header Files\rad\phppanel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\pythonpanel\pythonpanel.h">
+      <Filter>Header Files\rad\pythonpanel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\xrcpanel\xrcpanel.h">
+      <Filter>Header Files\rad\xrcpanel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\xrcpreview\xrcpreview.h">
+      <Filter>Header Files\rad\xrcpreview</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\about.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\appdata.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\auitabart.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\bitmaps.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\cmdproc.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\customkeys.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\genericpanel.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\mainframe.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\menueditor.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\palette.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\title.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\wxfbevent.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\wxfbmanager.h">
+      <Filter>Header Files\rad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\annoyingdialog.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\debug.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\filetocarray.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\stringutils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\typeconv.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\wxfbdefs.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\wxfbexception.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\wxfbipc.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils\wxlogstring.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sdk\plugin_interface\forms\wizard.h">
+      <Filter>Header Files\..\sdk\plugin_interface\forms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ticpp\ticpp.h">
+      <Filter>Header Files\ticpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ticpp\ticppapi.h">
+      <Filter>Header Files\ticpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ticpp\ticpprc.h">
+      <Filter>Header Files\ticpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ticpp\tinystr.h">
+      <Filter>Header Files\ticpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ticpp\tinyxml.h">
+      <Filter>Header Files\ticpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\codegen\codegen.h">
+      <Filter>Header Files\codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\codegen\codeparser.h">
+      <Filter>Header Files\codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\codegen\codewriter.h">
+      <Filter>Header Files\codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\codegen\cppcg.h">
+      <Filter>Header Files\codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\codegen\luacg.h">
+      <Filter>Header Files\codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\codegen\phpcg.h">
+      <Filter>Header Files\codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\codegen\pythoncg.h">
+      <Filter>Header Files\codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\codegen\xrccg.h">
+      <Filter>Header Files\codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\dbg_stack_trace\stack.hpp">
+      <Filter>Header Files\dbg_stack_trace</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\md5\md5.hh">
+      <Filter>Header Files\md5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\model\database.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\model\objectbase.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\model\types.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\model\xrcfilter.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rad\codeeditor\codeeditor.h">
+      <Filter>Header Files\rad\codeeditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sdk\plugin_interface\component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sdk\plugin_interface\fontcontainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sdk\plugin_interface\plugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sdk\plugin_interface\xrcconv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="..\sdk\plugin_interface\forms\wizard.fbp">
+      <Filter>Header Files\..\sdk\plugin_interface\forms</Filter>
+    </None>
+    <None Include="..\sdk\plugin_interface\default.xpm" />
+  </ItemGroup>
+</Project>

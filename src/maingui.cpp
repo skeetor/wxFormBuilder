@@ -54,20 +54,22 @@
 		__stdcall EXCEPTION_DISPOSITION StructuredExceptionHandler(	struct _EXCEPTION_RECORD *ExceptionRecord, /* breaks build with MinGW 32 */
 															void * EstablisherFrame,
 															struct _CONTEXT *ContextRecord,
-															void * DispatcherContext );
+															void * DispatcherContext);
 	#else
 		EXCEPTION_DISPOSITION StructuredExceptionHandler(	struct _EXCEPTION_RECORD *ExceptionRecord,
 															void * EstablisherFrame,
 															struct _CONTEXT *ContextRecord,
-															void * DispatcherContext );
+															void * DispatcherContext);
 	#endif
 #endif
 
 void LogStack();
 
 static const wxCmdLineEntryDesc s_cmdLineDesc[] = {
-	{ wxCMD_LINE_SWITCH, "g", "generate", "Generate code from passed file.", wxCMD_LINE_VAL_STRING,
-	  0 },
+	{ wxCMD_LINE_SWITCH, "g", "generate", "Generate code from passed file.", wxCMD_LINE_VAL_STRING, 0 },
+	{ wxCMD_LINE_OPTION, "p", "basepath",
+	  "Override the base path where the plugins, etc. is located. (Mostly for debugging)",
+	  wxCMD_LINE_VAL_STRING, 0 },
 	{ wxCMD_LINE_OPTION, "l", "language",
 	  "Override the code_generation property from the passed file and generate the passed "
 	  "languages. Separate multiple languages with commas.",
@@ -80,13 +82,13 @@ static const wxCmdLineEntryDesc s_cmdLineDesc[] = {
 	{ wxCMD_LINE_NONE, nullptr, nullptr, nullptr, wxCMD_LINE_VAL_NONE, 0 }
 };
 
-IMPLEMENT_APP( MyApp )
+IMPLEMENT_APP(MyApp)
 
 int MyApp::OnRun()
 {
 	// Abnormal Termination Handling
 	#if wxUSE_ON_FATAL_EXCEPTION && wxUSE_STACKWALKER
-		::wxHandleFatalExceptions( true );
+		::wxHandleFatalExceptions(true);
 	#elif defined(_WIN32) && defined(__MINGW32__)
         // Structured Exception handlers are stored in a linked list at FS:[0] for 32-bit and GS:[0] for 64-bit
         // https://github.com/wine-mirror/wine/blob/1aff1e6a370ee8c0213a0fd4b220d121da8527aa/include/winternl.h#L347
@@ -104,61 +106,69 @@ int MyApp::OnRun()
 	#endif
 
 	// Using a space so the initial 'w' will not be capitalized in wxLogGUI dialogs
-	wxApp::SetAppName( wxT( " wxFormBuilder" ) );
+	wxApp::SetAppName(wxT(" wxFormBuilder"));
 
 	// Creating the wxConfig manually so there will be no space
 	// The old config (if any) is returned, delete it
-	delete wxConfigBase::Set( new wxConfig( wxT("wxFormBuilder") ) );
+	delete wxConfigBase::Set(new wxConfig(wxT("wxFormBuilder")));
 
 	// Get the data directory
 	wxStandardPathsBase& stdPaths = wxStandardPaths::Get();
 	wxString dataDir = stdPaths.GetDataDir();
-	dataDir.Replace( GetAppName().c_str(), wxT("wxformbuilder") );
+	dataDir.Replace(GetAppName().c_str(), wxT("wxformbuilder"));
 
 	// Log to stderr while working on the command line
-	delete wxLog::SetActiveTarget( new wxLogStderr );
+	delete wxLog::SetActiveTarget(new wxLogStderr);
 
 	// Message output to the same as the log target
-	delete wxMessageOutput::Set( new wxMessageOutputLog );
+	delete wxMessageOutput::Set(new wxMessageOutputLog);
 
 	// Parse command line
-	wxCmdLineParser parser( s_cmdLineDesc, argc, argv );
-	if ( 0 != parser.Parse() )
+	wxCmdLineParser parser(s_cmdLineDesc, argc, argv);
+	if (0 != parser.Parse())
 	{
 		return 1;
 	}
 
-	if (parser.Found("v")) {
+	wxString baseDir;
+	if (parser.Found(wxT("p"), &baseDir))
+	{
+		dataDir = baseDir;
+		dataDir.Replace(GetAppName().c_str(), wxT("wxformbuilder"));
+	}
+
+	if (parser.Found(wxT("v")))
+	{
 		std::cout << "wxFormBuilder " << VERSION << REVISION << std::endl;
 		return EXIT_SUCCESS;
 	}
 
 	// Get project to load
 	wxString projectToLoad = wxEmptyString;
-	if ( parser.GetParamCount() > 0 )
+	if (parser.GetParamCount() > 0)
 	{
 		projectToLoad = parser.GetParam();
 	}
 
 	bool justGenerate = false;
 	wxString language;
-	bool hasLanguage = parser.Found( wxT("l"), &language );
-	if ( parser.Found( wxT("g") ) )
+	bool hasLanguage = parser.Found(wxT("l"), &language);
+	if (parser.Found(wxT("g")))
 	{
-		if ( projectToLoad.empty() )
+		if (projectToLoad.empty())
 		{
-			wxLogError( _("You must pass a path to a project file. Nothing to generate.") );
+			wxLogError(_("You must pass a path to a project file. Nothing to generate."));
 			return 2;
 		}
 
-		if ( hasLanguage )
+		if (hasLanguage)
 		{
-			if ( language.empty() )
+			if (language.empty())
 			{
-				wxLogError( _("Empty language option. Nothing generated.") );
+				wxLogError(_("Empty language option. Nothing generated."));
 				return 3;
 			}
-			language.Replace( wxT(","), wxT("|"), true );
+			language.Replace(wxT(","), wxT("|"), true);
 		}
 
 		// generate code
@@ -166,45 +176,45 @@ int MyApp::OnRun()
 	}
 	else
 	{
-		delete wxLog::SetActiveTarget( new wxLogGui );
+		delete wxLog::SetActiveTarget(new wxLogGui);
 	}
 
 	// Create singleton AppData - wait to initialize until sure that this is not the second
 	// instance of a project file.
-	AppDataCreate( dataDir );
+	AppDataCreate(dataDir);
 
 	// Make passed project name absolute
 	try
 	{
-		if ( !projectToLoad.empty() )
+		if (!projectToLoad.empty())
 		{
-			wxFileName projectPath( projectToLoad );
-			if ( !projectPath.IsOk() )
+			wxFileName projectPath(projectToLoad);
+			if (!projectPath.IsOk())
 			{
-				THROW_WXFBEX( wxT("This path is invalid: ") << projectToLoad );
+				THROW_WXFBEX(wxT("This path is invalid: ") << projectToLoad);
 			}
 
-			if ( !projectPath.IsAbsolute() )
+			if (!projectPath.IsAbsolute())
 			{
-				if ( !projectPath.MakeAbsolute() )
+				if (!projectPath.MakeAbsolute())
 				{
-					THROW_WXFBEX( wxT("Could not make path absolute: ") << projectToLoad );
+					THROW_WXFBEX(wxT("Could not make path absolute: ") << projectToLoad);
 				}
 			}
 			projectToLoad = projectPath.GetFullPath();
 		}
 	}
-	catch ( wxFBException& ex )
+	catch (wxFBException& ex)
 	{
-		wxLogError( ex.what() );
+		wxLogError(ex.what());
 	}
 
 	// If the project is already loaded in another instance, switch to that instance and quit
-	if ( !projectToLoad.empty() && !justGenerate )
+	if (!projectToLoad.empty() && !justGenerate)
 	{
-		if ( ::wxFileExists( projectToLoad ) )
+		if (::wxFileExists(projectToLoad))
 		{
-			if ( !AppData()->VerifySingleInstance( projectToLoad ) )
+			if (!AppData()->VerifySingleInstance(projectToLoad))
 			{
 				return 4;
 			}
@@ -225,15 +235,15 @@ int MyApp::OnRun()
 	{
 		AppDataInit();
 	}
-	catch( wxFBException& ex )
+	catch(wxFBException& ex)
 	{
-		wxLogError( _("Error loading application: %s\nwxFormBuilder cannot continue."),	ex.what() );
+		wxLogError(_("Error loading application: %s\nwxFormBuilder cannot continue."),	ex.what());
 		wxLog::FlushActive();
 		return 5;
 	}
 
-	wxSystemOptions::SetOption( wxT( "msw.remap" ), 0 );
-	wxSystemOptions::SetOption( wxT( "msw.staticbox.optimized-paint" ), 0 );
+	wxSystemOptions::SetOption(wxT("msw.remap"), 0);
+	wxSystemOptions::SetOption(wxT("msw.staticbox.optimized-paint"), 0);
 
 	m_frame = NULL;
 
@@ -241,33 +251,33 @@ int MyApp::OnRun()
 
 	// Read size and position from config file
 	wxConfigBase *config = wxConfigBase::Get();
-	config->SetPath( wxT("/mainframe") );
+	config->SetPath(wxT("/mainframe"));
 	int x, y, w, h;
 	x = y = w = h = -1;
-	config->Read( wxT( "PosX" ), &x );
-	config->Read( wxT( "PosY" ), &y );
-	config->Read( wxT( "SizeW" ), &w );
-	config->Read( wxT( "SizeH" ), &h );
+	config->Read(wxT("PosX"), &x);
+	config->Read(wxT("PosY"), &y);
+	config->Read(wxT("SizeW"), &w);
+	config->Read(wxT("SizeH"), &h);
 
-	long style = config->Read( wxT("style"), wxFB_WIDE_GUI );
-	if ( style != wxFB_CLASSIC_GUI )
+	long style = config->Read(wxT("style"), wxFB_WIDE_GUI);
+	if (style != wxFB_CLASSIC_GUI)
 	{
 		style = wxFB_WIDE_GUI;
 	}
 
-	config->SetPath( wxT("/") );
+	config->SetPath(wxT("/"));
 
-	m_frame = new MainFrame( NULL ,wxID_ANY, (int)style, wxPoint( x, y ), wxSize( w, h ) );
-	if ( !justGenerate )
+	m_frame = new MainFrame(NULL ,wxID_ANY, (int)style, wxPoint(x, y), wxSize(w, h));
+	if (!justGenerate)
 	{
-		m_frame->Show( TRUE );
-		SetTopWindow( m_frame );
+		m_frame->Show(TRUE);
+		SetTopWindow(m_frame);
 
 		#ifdef __WXFB_DEBUG__
-			wxLogWindow* log = dynamic_cast< wxLogWindow* >( AppData()->GetDebugLogTarget() );
-			if ( log )
+			wxLogWindow* log = dynamic_cast< wxLogWindow* >(AppData()->GetDebugLogTarget());
+			if (log)
 			{
-				m_frame->AddChild( log->GetFrame() );
+				m_frame->AddChild(log->GetFrame());
 			}
 		#endif //__WXFB_DEBUG__
 	}
@@ -277,40 +287,40 @@ int MyApp::OnRun()
 	// This puts an unneccessary lock on the directory.
 	// This changes the CWD to the already locked app directory as a workaround
 	#ifdef __WXMSW__
-	::wxSetWorkingDirectory( dataDir );
+	::wxSetWorkingDirectory(dataDir);
 	#endif
 
-	if ( !projectToLoad.empty() )
+	if (!projectToLoad.empty())
 	{
-		if ( AppData()->LoadProject( projectToLoad, justGenerate ) )
+		if (AppData()->LoadProject(projectToLoad, justGenerate))
 		{
-			if ( justGenerate )
+			if (justGenerate)
 			{
-				if ( hasLanguage )
+				if (hasLanguage)
 				{
 					PObjectBase project = AppData()->GetProjectData();
-					PProperty codeGen = project->GetProperty( _("code_generation") );
-					if ( codeGen )
+					PProperty codeGen = project->GetProperty(_("code_generation"));
+					if (codeGen)
 					{
-						codeGen->SetValue( language );
+						codeGen->SetValue(language);
 					}
 				}
-				AppData()->GenerateCode( false, true );
+				AppData()->GenerateCode(false, true);
 				return 0;
 			}
 			else
 			{
-				m_frame->InsertRecentProject( projectToLoad );
+				m_frame->InsertRecentProject(projectToLoad);
 				return wxApp::OnRun();
 			}
 		}
 		else
 		{
-			wxLogError( wxT("Unable to load project: %s"), projectToLoad.c_str() );
+			wxLogError(wxT("Unable to load project: %s"), projectToLoad.c_str());
 		}
 	}
 
-	if ( justGenerate )
+	if (justGenerate)
 	{
 		return 6;
 	}
@@ -321,8 +331,8 @@ int MyApp::OnRun()
     // document to open on startup
     if(!m_mac_file_name.IsEmpty())
     {
-        if ( AppData()->LoadProject( m_mac_file_name ) )
-            m_frame->InsertRecentProject( m_mac_file_name );
+        if (AppData()->LoadProject(m_mac_file_name))
+            m_frame->InsertRecentProject(m_mac_file_name);
     }
 #endif
 
@@ -340,9 +350,9 @@ int MyApp::OnExit()
 	MacroDictionary::Destroy();
 	AppDataDestroy();
 
-	if( !wxTheClipboard->IsOpened() )
+	if(!wxTheClipboard->IsOpened())
 	{
-        if ( !wxTheClipboard->Open() )
+        if (!wxTheClipboard->Open())
         {
             return wxApp::OnExit();
         }
@@ -363,8 +373,8 @@ void MyApp::MacOpenFile(const wxString &fileName)
     {
         if(!m_frame->SaveWarning()) return;
 
-        if ( AppData()->LoadProject( fileName ) )
-            m_frame->InsertRecentProject( fileName );
+        if (AppData()->LoadProject(fileName))
+            m_frame->InsertRecentProject(fileName);
     }
 }
 #endif
@@ -377,14 +387,14 @@ void MyApp::MacOpenFile(const wxString &fileName)
 			// Build param string
 			wxString params;
 			size_t paramCount = frame.GetParamCount();
-			if ( paramCount > 0 )
+			if (paramCount > 0)
 			{
-				params << wxT("( ");
+				params << wxT("(");
 
-				for ( size_t i = 0; i < paramCount; ++i )
+				for (size_t i = 0; i < paramCount; ++i)
 				{
 					wxString type, name, value;
-					if ( frame.GetParam( i, &type, &name, &value) )
+					if (frame.GetParam(i, &type, &name, &value))
 					{
 						params << type << wxT(" ") << name << wxT(" = ") << value << wxT(", ");
 					}
@@ -394,18 +404,18 @@ void MyApp::MacOpenFile(const wxString &fileName)
 			}
 
 			wxString source;
-			if ( frame.HasSourceLocation() )
+			if (frame.HasSourceLocation())
 			{
-				source.Printf( wxT("%s@%i"), frame.GetFileName().c_str(), frame.GetLine() );
+				source.Printf(wxT("%s@%i"), frame.GetFileName().c_str(), frame.GetLine());
 			}
 
-			wxLogError( wxT("%03i %i %s %s %s %s"),
+			wxLogError(wxT("%03i %i %s %s %s %s"),
 							frame.GetLevel(),
 							frame.GetAddress(),
 							frame.GetModule().c_str(),
 							frame.GetName().c_str(),
 							params.c_str(),
-							source.c_str() );
+							source.c_str());
 		}
 	};
 
@@ -418,7 +428,7 @@ void MyApp::MacOpenFile(const wxString &fileName)
 	EXCEPTION_DISPOSITION StructuredExceptionHandler(	struct _EXCEPTION_RECORD *ExceptionRecord,
 																void * EstablisherFrame,
 																struct _CONTEXT *ContextRecord,
-																void * DispatcherContext )
+																void * DispatcherContext)
 	{
 		context = ContextRecord;
 		LogStack();
@@ -435,18 +445,18 @@ void MyApp::MacOpenFile(const wxString &fileName)
 			try
 			{
 				std::stringstream output;
-				dbg::stack s( 0, context );
+				dbg::stack s(0, context);
 				dbg::stack::const_iterator frame;
-				for ( frame = s.begin(); frame != s.end(); ++frame )
+				for (frame = s.begin(); frame != s.end(); ++frame)
 				{
 					output << *frame;
-					wxLogError( wxString( output.str().c_str(), *wxConvCurrent ) );
-					output.str( "" );
+					wxLogError(wxString(output.str().c_str(), *wxConvCurrent));
+					output.str("");
 				}
 			}
-			catch ( std::exception& ex )
+			catch (std::exception& ex)
 			{
-				wxLogError( wxString( ex.what(), *wxConvCurrent ) );
+				wxLogError(wxString(ex.what(), *wxConvCurrent));
 			}
 		}
 	};
@@ -461,10 +471,10 @@ public:
 	}
 
 	~LoggingStackWalker() override {
-        wxLogError( wxT("A Fatal Error Occurred. Click Details for a backtrace.") );
+        wxLogError(wxT("A Fatal Error Occurred. Click Details for a backtrace."));
         wxLog::Resume();
         wxLog* logger = wxLog::GetActiveTarget();
-        if ( 0 != logger )
+        if (0 != logger)
         {
             logger->Flush();
         }
