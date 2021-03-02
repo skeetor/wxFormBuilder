@@ -481,5 +481,8 @@
     <None Include="packages.config" />
     <None Include="..\sdk\plugin_interface\default.xpm" />
     <None Include="..\sdk\plugin_interface\forms\wizard.fbp" />
+    <None Include="..\install.cmd">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
