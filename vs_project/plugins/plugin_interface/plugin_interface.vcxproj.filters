@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\interface">
+      <UniqueIdentifier>{f607faab-e4e8-4999-aee0-48aa7db4c0c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\interface\forms">
+      <UniqueIdentifier>{4aa450af-20bc-4ca7-aea3-c685b21f99fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\interface">
+      <UniqueIdentifier>{0b3f660b-05be-4813-a032-73a0cc61e6aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\interface\forms">
+      <UniqueIdentifier>{0f1aa4dc-9637-410b-9368-f94b940e199d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\plugin_interface\forms\wizard.h">
+      <Filter>Header Files\interface\forms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\plugin_interface\component.h">
+      <Filter>Header Files\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\plugin_interface\fontcontainer.h">
+      <Filter>Header Files\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sdk\plugin_interface\plugin.h">
+      <Filter>Header Files\interface</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\sdk\plugin_interface\forms\wizard.cpp">
+      <Filter>Source Files\interface\forms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sdk\plugin_interface\xrcconv.cpp">
+      <Filter>Source Files\interface</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\sdk\plugin_interface\forms\wizard.fbp">
+      <Filter>Source Files\interface\forms</Filter>
+    </None>
+    <None Include="..\..\..\sdk\plugin_interface\default.xpm">
+      <Filter>Source Files\interface</Filter>
+    </None>
+  </ItemGroup>
+</Project>

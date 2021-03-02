@@ -127,23 +127,8 @@
     <Filter Include="Header Files\utils">
       <UniqueIdentifier>{f2c4e47c-4243-4c29-a3b4-aff32531fe54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ticpp">
-      <UniqueIdentifier>{19feca43-c24a-4cee-aee3-b16061ebcb7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ticpp">
-      <UniqueIdentifier>{635eab83-2050-40ae-bd8e-3fb7fcbefe0b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\sdk">
-      <UniqueIdentifier>{9f80f497-f4b6-4ef6-a4d6-1efb5b9fd336}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\..\sdk\plugin_interface\forms">
-      <UniqueIdentifier>{d7380357-c5d9-476f-951b-eefb7f6d39e9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\sdk">
       <UniqueIdentifier>{9811e59d-fd61-446a-881c-7e3e0df2ecee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\..\sdk\plugin_interface\forms">
-      <UniqueIdentifier>{9aa08fa2-2f38-48d5-b6f6-196de16fd951}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -255,24 +240,6 @@
     <ClCompile Include="..\src\utils\wxfbipc.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\sdk\plugin_interface\forms\wizard.cpp">
-      <Filter>Source Files\..\sdk\plugin_interface\forms</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ticpp\ticpp.cpp">
-      <Filter>Source Files\ticpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ticpp\tinystr.cpp">
-      <Filter>Source Files\ticpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ticpp\tinyxml.cpp">
-      <Filter>Source Files\ticpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ticpp\tinyxmlerror.cpp">
-      <Filter>Source Files\ticpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ticpp\tinyxmlparser.cpp">
-      <Filter>Source Files\ticpp</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\codegen\codegen.cpp">
       <Filter>Source Files\codegen</Filter>
     </ClCompile>
@@ -317,6 +284,9 @@
     </ClCompile>
     <ClCompile Include="..\src\rad\codeeditor\codeeditor.cpp">
       <Filter>Source Files\rad\codeeditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sdk\plugin_interface\forms\wizard.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -446,24 +416,6 @@
     <ClInclude Include="..\src\utils\wxlogstring.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\sdk\plugin_interface\forms\wizard.h">
-      <Filter>Header Files\..\sdk\plugin_interface\forms</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ticpp\ticpp.h">
-      <Filter>Header Files\ticpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ticpp\ticppapi.h">
-      <Filter>Header Files\ticpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ticpp\ticpprc.h">
-      <Filter>Header Files\ticpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ticpp\tinystr.h">
-      <Filter>Header Files\ticpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ticpp\tinyxml.h">
-      <Filter>Header Files\ticpp</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\codegen\codegen.h">
       <Filter>Header Files\codegen</Filter>
     </ClInclude>
@@ -521,12 +473,13 @@
     <ClInclude Include="..\sdk\plugin_interface\xrcconv.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\sdk\plugin_interface\forms\wizard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="..\sdk\plugin_interface\forms\wizard.fbp">
-      <Filter>Header Files\..\sdk\plugin_interface\forms</Filter>
-    </None>
     <None Include="..\sdk\plugin_interface\default.xpm" />
+    <None Include="..\sdk\plugin_interface\forms\wizard.fbp" />
   </ItemGroup>
 </Project>
