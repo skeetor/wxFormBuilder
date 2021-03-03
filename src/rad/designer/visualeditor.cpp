@@ -46,28 +46,28 @@ BEGIN_EVENT_TABLE(VisualEditor,wxScrolledWindow)
 	//EVT_COMMAND(wxID_ANY, wxEVT_PANEL_RESIZED, VisualEditor::OnResizeBackPanel)
 	EVT_INNER_FRAME_RESIZED(wxID_ANY, VisualEditor::OnResizeBackPanel)
 
-	EVT_FB_PROJECT_LOADED( VisualEditor::OnProjectLoaded )
-	EVT_FB_PROJECT_SAVED( VisualEditor::OnProjectSaved )
-	EVT_FB_OBJECT_SELECTED( VisualEditor::OnObjectSelected )
-	EVT_FB_OBJECT_CREATED( VisualEditor::OnObjectCreated )
-	EVT_FB_OBJECT_REMOVED( VisualEditor::OnObjectRemoved )
-	EVT_FB_PROPERTY_MODIFIED( VisualEditor::OnPropertyModified )
-	EVT_FB_PROJECT_REFRESH( VisualEditor::OnProjectRefresh )
-	EVT_FB_CODE_GENERATION( VisualEditor::OnProjectRefresh )
+	EVT_FB_PROJECT_LOADED(VisualEditor::OnProjectLoaded)
+	EVT_FB_PROJECT_SAVED(VisualEditor::OnProjectSaved)
+	EVT_FB_OBJECT_SELECTED(VisualEditor::OnObjectSelected)
+	EVT_FB_OBJECT_CREATED(VisualEditor::OnObjectCreated)
+	EVT_FB_OBJECT_REMOVED(VisualEditor::OnObjectRemoved)
+	EVT_FB_PROPERTY_MODIFIED(VisualEditor::OnPropertyModified)
+	EVT_FB_PROJECT_REFRESH(VisualEditor::OnProjectRefresh)
+	EVT_FB_CODE_GENERATION(VisualEditor::OnProjectRefresh)
 
-	EVT_TIMER( ID_TIMER_SCAN, VisualEditor::OnAuiScaner )
+	EVT_TIMER(ID_TIMER_SCAN, VisualEditor::OnAuiScaner)
 
 END_EVENT_TABLE()
 
 VisualEditor::VisualEditor(wxWindow *parent)
 :
 wxScrolledWindow(parent, wxID_ANY,wxDefaultPosition,wxDefaultSize,wxSUNKEN_BORDER),
-m_stopSelectedEvent( false ),
-m_stopModifiedEvent( false )
+m_stopSelectedEvent(false),
+m_stopModifiedEvent(false)
 {
-	SetExtraStyle( wxWS_EX_BLOCK_EVENTS );
+	SetExtraStyle(wxWS_EX_BLOCK_EVENTS);
 
-	AppData()->AddHandler( this->GetEventHandler() );
+	AppData()->AddHandler(this->GetEventHandler());
 
 	if (!AppData()->IsDarkMode())
 	{
@@ -80,15 +80,15 @@ m_stopModifiedEvent( false )
 
 	SetScrollRate(5, 5);
 
-	m_back = new DesignerWindow( this, wxID_ANY, wxPoint(10,10) );
-	m_back->GetEventHandler()->Connect( wxID_ANY, wxEVT_LEFT_DOWN, wxMouseEventHandler( VisualEditor::OnClickBackPanel ), NULL, this );
+	m_back = new DesignerWindow(this, wxID_ANY, wxPoint(10,10));
+	m_back->GetEventHandler()->Connect(wxID_ANY, wxEVT_LEFT_DOWN, wxMouseEventHandler(VisualEditor::OnClickBackPanel), NULL, this);
 
 	m_auimgr = NULL;
 	m_auipanel = NULL;
 
 	// scan aui panes in run-time
-	m_AuiScaner.SetOwner( this, ID_TIMER_SCAN );
-	m_AuiScaner.Start( 200 );
+	m_AuiScaner.SetOwner(this, ID_TIMER_SCAN);
+	m_AuiScaner.Start(200);
 
     m_wizard = NULL;
 }
@@ -96,10 +96,10 @@ m_stopModifiedEvent( false )
 void VisualEditor::DeleteAbstractObjects()
 {
 	wxObjectMap::iterator it;
-	for ( it = m_wxobjects.begin(); it != m_wxobjects.end(); ++it )
+	for (it = m_wxobjects.begin(); it != m_wxobjects.end(); ++it)
 	{
 	    // The abstract objects are stored as wxNoObject*'s
-		wxNoObject* noobject = dynamic_cast< wxNoObject* >( it->first );
+		wxNoObject* noobject = dynamic_cast< wxNoObject* >(it->first);
 		delete noobject;
 		if (noobject == nullptr) {
 			// Delete push'd visual object event handlers
@@ -119,12 +119,12 @@ VisualEditor::~VisualEditor()
 {
 	m_AuiScaner.Stop();
 
-	AppData()->RemoveHandler( this->GetEventHandler() );
+	AppData()->RemoveHandler(this->GetEventHandler());
 	DeleteAbstractObjects();
 
 	ClearAui();
     ClearWizard();
-	ClearComponents( m_back->GetFrameContentPanel() );
+	ClearComponents(m_back->GetFrameContentPanel());
 }
 
 void VisualEditor::UpdateVirtualSize()
@@ -136,9 +136,9 @@ void VisualEditor::UpdateVirtualSize()
 	if (panelW != w || panelH != h) SetVirtualSize(panelW, panelH);
 }
 
-void VisualEditor::OnClickBackPanel( wxMouseEvent& event )
+void VisualEditor::OnClickBackPanel(wxMouseEvent& event)
 {
-	if ( m_form )
+	if (m_form)
 	{
 		AppData()->SelectObject(m_form);
 	}
@@ -151,13 +151,13 @@ void VisualEditor::OnResizeBackPanel (wxCommandEvent &) //(wxSashEvent &event)
 	LogDebug("VisualEditor::OnResizeBackPanel [%d,%d,%d,%d]",rect.x,rect.y,rect.width, rect.height);
 	m_back->SetSize(rect.width,rect.height);
 	m_back->Layout();*/
-	LogDebug( "event: " + wxString("OnResizeBackPanel") );
+	LogDebug("event: " + wxString("OnResizeBackPanel"));
 
 	PObjectBase form (AppData()->GetSelectedForm());
 
 	if (form)
 	{
-		PProperty prop(form->GetProperty( wxT("size") ));
+		PProperty prop(form->GetProperty(wxT("size")));
 		if (prop)
 		{
 			wxString value(TypeConv::PointToString(wxPoint(m_back->GetSize().x, m_back->GetSize().y)));
@@ -168,77 +168,77 @@ void VisualEditor::OnResizeBackPanel (wxCommandEvent &) //(wxSashEvent &event)
 	/*event.Skip();*/
 }
 
-void VisualEditor::OnWizardPageChanged( WizardEvent &event )
+void VisualEditor::OnWizardPageChanged(WizardEvent &event)
 {
     int i = event.GetInt();
-    if ( !i )
+    if (!i)
     {
-        AppData()->GetManager()->SelectObject( event.GetPage() );
+        AppData()->GetManager()->SelectObject(event.GetPage());
         return;
     }
     event.Skip();
 }
 
-PObjectBase VisualEditor::GetObjectBase( wxObject* wxobject )
+PObjectBase VisualEditor::GetObjectBase(wxObject* wxobject)
 {
-	if ( NULL == wxobject )
+	if (NULL == wxobject)
 	{
-		wxLogError( _("wxObject was NULL!") );
+		wxLogError(_("wxObject was NULL!"));
 		return PObjectBase();
 	}
 
-	wxObjectMap::iterator obj = m_wxobjects.find( wxobject );
-	if ( obj != m_wxobjects.end() )
+	wxObjectMap::iterator obj = m_wxobjects.find(wxobject);
+	if (obj != m_wxobjects.end())
 	{
 		return obj->second;
 	}
 	else
 	{
-		wxLogError( _("No corresponding ObjectBase for wxObject. Name: %s"), wxobject->GetClassInfo()->GetClassName() );
+		wxLogError(_("No corresponding ObjectBase for wxObject. Name: %s"), wxobject->GetClassInfo()->GetClassName());
 		return PObjectBase();
 	}
 }
 
-wxObject* VisualEditor::GetWxObject( PObjectBase baseobject )
+wxObject* VisualEditor::GetWxObject(PObjectBase baseobject)
 {
-	if ( !baseobject )
+	if (!baseobject)
 	{
-		wxLogError( _("baseobject was NULL!") );
+		wxLogError(_("baseobject was NULL!"));
 		return NULL;
 	}
 
-	ObjectBaseMap::iterator obj = m_baseobjects.find( baseobject.get() );
-	if ( obj != m_baseobjects.end() )
+	ObjectBaseMap::iterator obj = m_baseobjects.find(baseobject.get());
+	if (obj != m_baseobjects.end())
 	{
 		return obj->second;
 	}
 	else
 	{
-		wxLogError( _("No corresponding wxObject for ObjectBase. Name: %s"), baseobject->GetClassName().c_str() );
+		wxLogError(_("No corresponding wxObject for ObjectBase. Name: %s"), baseobject->GetClassName().c_str());
 		return NULL;
 	}
 }
 
-void VisualEditor::ScanPanes( wxWindow* parent)
+void VisualEditor::ScanPanes(wxWindow* parent)
 {
 	bool updateNeeded;
 
 	wxLogNull stopTheLogging;
 	const wxWindowList& children = parent->GetChildren();
-	for ( wxWindowList::const_reverse_iterator child = children.rbegin(); child != children.rend(); ++child )
+	for (wxWindowList::const_reverse_iterator child = children.rbegin(); child != children.rend(); ++child)
 	{
 		ScanPanes(*child);
 
-		PObjectBase obj = GetObjectBase( *child );
+		PObjectBase obj = GetObjectBase(*child);
 
-		if ( obj )
+		if (obj)
 		{
 			updateNeeded = false;
 
 			PObjectInfo obj_info = obj->GetObjectInfo();
 			wxString cname = obj_info->GetObjectType()->GetName();
 
-			if( cname == wxT("widget") ||
+			if(cname == wxT("widget") ||
 				cname == wxT("expanded_widget") ||
 				cname == wxT("ribbonbar") ||
 				cname == wxT("propgrid") ||
@@ -247,7 +247,7 @@ void VisualEditor::ScanPanes( wxWindow* parent)
 				cname == wxT("dataviewtreectrl") ||
 				cname == wxT("dataviewlistctrl") ||
 				cname == wxT("toolbar") ||
-				cname == wxT("container") )
+				cname == wxT("container"))
 			{
 				wxAuiPaneInfo inf = m_auimgr->GetPane(*child);
 				if(inf.IsOk())
@@ -255,7 +255,7 @@ void VisualEditor::ScanPanes( wxWindow* parent)
 					// scan position and docking mode
 					if (obj->GetPropertyAsInteger(wxT("center_pane")) == 0) {
 						wxString dock;
-						if( inf.IsDocked())
+						if(inf.IsDocked())
 						{
 							wxString dockDir;
 							switch(inf.dock_direction)
@@ -284,11 +284,11 @@ void VisualEditor::ScanPanes( wxWindow* parent)
 									dockDir = wxT("Left");
 									break;
 							}
-							PProperty pdock = obj->GetProperty( wxT("docking") );
+							PProperty pdock = obj->GetProperty(wxT("docking"));
 
-							if( pdock->GetValue() != dockDir )
+							if(pdock->GetValue() != dockDir)
 							{
-								pdock->SetValue( dockDir );
+								pdock->SetValue(dockDir);
 								updateNeeded = true;
 							}
 
@@ -298,26 +298,26 @@ void VisualEditor::ScanPanes( wxWindow* parent)
 						{
 							// scan "floating position"
 							wxPoint pos = inf.floating_pos;
-							if ( pos.x != -1 && pos.y != -1 )
+							if (pos.x != -1 && pos.y != -1)
 							{
-								PProperty pposition = obj->GetProperty( wxT("pane_position") );
-								if( pposition->GetValue() != TypeConv::PointToString( pos ) )
+								PProperty pposition = obj->GetProperty(wxT("pane_position"));
+								if(pposition->GetValue() != TypeConv::PointToString(pos))
 								{
-									pposition->SetValue( TypeConv::PointToString( pos ) );
+									pposition->SetValue(TypeConv::PointToString(pos));
 									updateNeeded = true;
 								}
 							}
 
 							// scan "floating size"
 							wxSize paneSize = inf.floating_size;
-							if ( paneSize.x != -1 && paneSize.y != -1 )
+							if (paneSize.x != -1 && paneSize.y != -1)
 							{
-								PProperty psize = obj->GetProperty( wxT("pane_size") );
+								PProperty psize = obj->GetProperty(wxT("pane_size"));
 
-								if( psize->GetValue() != TypeConv::SizeToString( paneSize ) )
+								if(psize->GetValue() != TypeConv::SizeToString(paneSize))
 								{
-									psize->SetValue( TypeConv::SizeToString( paneSize )  );
-									obj->GetProperty( wxT("resize") )->SetValue( wxT("Resizable") );
+									psize->SetValue(TypeConv::SizeToString(paneSize) );
+									obj->GetProperty(wxT("resize"))->SetValue(wxT("Resizable"));
 
 									updateNeeded = true;
 								}
@@ -325,52 +325,52 @@ void VisualEditor::ScanPanes( wxWindow* parent)
 
 							dock = wxT("Float");
 						}
-						PProperty pfloat = obj->GetProperty(wxT("dock") );
-						if( pfloat->GetValue() != dock )
+						PProperty pfloat = obj->GetProperty(wxT("dock"));
+						if(pfloat->GetValue() != dock)
 						{
-							pfloat->SetValue( dock );
+							pfloat->SetValue(dock);
 							updateNeeded = true;
 						}
 
 						// scan "best size"
 						/*wxSize bestSize = inf.best_size;
-						if ( bestSize.x != -1 && bestSize.y != -1 )
+						if (bestSize.x != -1 && bestSize.y != -1)
 						{
-							PProperty psize = obj->GetProperty( wxT("best_size") );
+							PProperty psize = obj->GetProperty(wxT("best_size"));
 
-							if( psize->GetValue() != TypeConv::SizeToString( bestSize ) )
+							if(psize->GetValue() != TypeConv::SizeToString(bestSize))
 							{
-								psize->SetValue( TypeConv::SizeToString( bestSize )  );
-								obj->GetProperty( wxT("resize") )->SetValue( wxT("Resizable") );
+								psize->SetValue(TypeConv::SizeToString(bestSize) );
+								obj->GetProperty(wxT("resize"))->SetValue(wxT("Resizable"));
 
 								updateNeeded = true;
 							}
 						}*/
 
 						// scan "row" and "layer"
-						PProperty prop = obj->GetProperty(wxT("aui_row") );
-						if( obj->GetPropertyAsInteger( wxT("aui_row") ) != inf.dock_row )
+						PProperty prop = obj->GetProperty(wxT("aui_row"));
+						if(obj->GetPropertyAsInteger(wxT("aui_row")) != inf.dock_row)
 						{
-							prop->SetValue( inf.dock_row );
+							prop->SetValue(inf.dock_row);
 							updateNeeded = true;
 						}
-						prop = obj->GetProperty(wxT("aui_layer") );
-						if( obj->GetPropertyAsInteger( wxT("aui_layer") ) != inf.dock_layer )
+						prop = obj->GetProperty(wxT("aui_layer"));
+						if(obj->GetPropertyAsInteger(wxT("aui_layer")) != inf.dock_layer)
 						{
-							prop->SetValue( inf.dock_layer );
+							prop->SetValue(inf.dock_layer);
 							updateNeeded = true;
 						}
 					}
 
 					// scan "show" property
-					PProperty pshow = obj->GetProperty(wxT("show") );
-					if( obj->GetPropertyAsInteger( wxT("show") ) != (int) inf.IsShown() )
+					PProperty pshow = obj->GetProperty(wxT("show"));
+					if(obj->GetPropertyAsInteger(wxT("show")) != (int) inf.IsShown())
 					{
 						pshow->SetValue(inf.IsShown() ? 1 : 0);
 						updateNeeded = true;
 					}
 
-					if( updateNeeded ) AppData()->SelectObject( obj, true, true );
+					if(updateNeeded) AppData()->SelectObject(obj, true, true);
 				}
 			}
 		}
@@ -380,7 +380,7 @@ void VisualEditor::ScanPanes( wxWindow* parent)
 
 void VisualEditor::ClearAui()
 {
-	if ( m_auimgr )
+	if (m_auimgr)
 	{
 		m_auimgr->UnInit();
 
@@ -392,32 +392,32 @@ void VisualEditor::ClearAui()
 
 void VisualEditor::ClearWizard()
 {
-	if ( m_wizard )
+	if (m_wizard)
 	{
-		m_wizard->Disconnect( wxID_ANY, wxFB_EVT_WIZARD_PAGE_CHANGED, WizardEventHandler( VisualEditor::OnWizardPageChanged ) );
+		m_wizard->Disconnect(wxID_ANY, wxFB_EVT_WIZARD_PAGE_CHANGED, WizardEventHandler(VisualEditor::OnWizardPageChanged));
         m_wizard->Destroy();
 		m_wizard = NULL;
 	}
 }
 
-void VisualEditor::ClearComponents( wxWindow* parent )
+void VisualEditor::ClearComponents(wxWindow* parent)
 {
 	// Individual wxWindow's of composite components made of wxWindow's will be found here as well and won't have an associated ObjectBase,
 	// prevent the error log messages
     wxLogNull stopTheLogging;
     const wxWindowList& children = parent->GetChildren();
-    for ( wxWindowList::const_reverse_iterator child = children.rbegin(); child != children.rend(); ++child )
+    for (wxWindowList::const_reverse_iterator child = children.rbegin(); child != children.rend(); ++child)
     {
-		ClearComponents( *child );
+		ClearComponents(*child);
 
-        PObjectBase obj = GetObjectBase( *child );
-        if ( obj )
+        PObjectBase obj = GetObjectBase(*child);
+        if (obj)
         {
 			PObjectInfo obj_info = obj->GetObjectInfo();
             IComponent* comp = obj_info->GetComponent();
-            if ( comp )
+            if (comp)
             {
-				comp->Cleanup( *child );
+				comp->Cleanup(*child);
             }
         }
     }
@@ -428,8 +428,8 @@ void VisualEditor::ClearComponents( wxWindow* parent )
 */
 void VisualEditor::Create()
 {
-#if !defined(__WXGTK__ )
-	if ( IsShown() )
+#if !defined(__WXGTK__)
+	if (IsShown())
 	{
         Freeze();   // Prevent flickering on wx 2.8,
                     // Causes problems on wx 2.9 in wxGTK (e.g. wxNoteBook objects)
@@ -445,53 +445,53 @@ void VisualEditor::Create()
 
 	ClearAui();
     ClearWizard();
-	ClearComponents( m_back->GetFrameContentPanel() );
+	ClearComponents(m_back->GetFrameContentPanel());
 
 	m_back->GetFrameContentPanel()->DestroyChildren();
-	m_back->GetFrameContentPanel()->SetSizer( NULL ); // *!*
+	m_back->GetFrameContentPanel()->SetSizer(NULL); // *!*
 
 	// Clear all associations between ObjectBase and wxObjects
 	m_wxobjects.clear();
 	m_baseobjects.clear();
 
-	if( IsShown() )
+	if(IsShown())
 	{
 		m_form = AppData()->GetSelectedForm();
-		if ( m_form )
+		if (m_form)
 		{
 			m_back->Show(true);
 
 			// --- [1] Configure the size of the form ---------------------------
 
 			// Get size properties
-			wxSize minSize( m_form->GetPropertyAsSize( wxT("minimum_size") ) );
-			m_back->SetMinSize( minSize );
+			wxSize minSize(m_form->GetPropertyAsSize(wxT("minimum_size")));
+			m_back->SetMinSize(minSize);
 
-			wxSize maxSize( m_form->GetPropertyAsSize( wxT("maximum_size") ) );
-			m_back->SetMaxSize( maxSize );
+			wxSize maxSize(m_form->GetPropertyAsSize(wxT("maximum_size")));
+			m_back->SetMaxSize(maxSize);
 
-			wxSize size( m_form->GetPropertyAsSize( wxT("size") ) );
+			wxSize size(m_form->GetPropertyAsSize(wxT("size")));
 
 			// Determine necessary size for back panel
 			wxSize backSize = size;
-			if ( backSize.GetWidth() < minSize.GetWidth() && backSize.GetWidth() != wxDefaultCoord )
+			if (backSize.GetWidth() < minSize.GetWidth() && backSize.GetWidth() != wxDefaultCoord)
 			{
-				backSize.SetWidth( minSize.GetWidth() );
+				backSize.SetWidth(minSize.GetWidth());
 			}
-			if ( backSize.GetHeight() < minSize.GetHeight() && backSize.GetHeight() != wxDefaultCoord )
+			if (backSize.GetHeight() < minSize.GetHeight() && backSize.GetHeight() != wxDefaultCoord)
 			{
-				backSize.SetHeight( minSize.GetHeight() );
+				backSize.SetHeight(minSize.GetHeight());
 			}
-			if ( backSize.GetWidth() > maxSize.GetWidth() && maxSize.GetWidth() != wxDefaultCoord )
+			if (backSize.GetWidth() > maxSize.GetWidth() && maxSize.GetWidth() != wxDefaultCoord)
 			{
-				backSize.SetWidth( maxSize.GetWidth() );
+				backSize.SetWidth(maxSize.GetWidth());
 			}
-			if ( backSize.GetHeight() > maxSize.GetHeight() && maxSize.GetHeight() != wxDefaultCoord )
+			if (backSize.GetHeight() > maxSize.GetHeight() && maxSize.GetHeight() != wxDefaultCoord)
 			{
-				backSize.SetHeight( maxSize.GetHeight() );
+				backSize.SetHeight(maxSize.GetHeight());
 			}
 
-			if ( size != backSize )
+			if (size != backSize)
 			{
 				// Since we could be called by VisualEditor::OnPropertyModified we mustn't trigger a
 				// modify event again. Creating a delayed event won't work either, as this would
@@ -500,71 +500,71 @@ void VisualEditor::Create()
 			}
 
 			// --- [2] Set the color of the form -------------------------------
-			PProperty background( m_form->GetProperty( wxT("bg") ) );
-			if ( background && !background->GetValue().empty() )
+			PProperty background(m_form->GetProperty(wxT("bg")));
+			if (background && !background->GetValue().empty())
 			{
-				m_back->GetFrameContentPanel()->SetBackgroundColour( TypeConv::StringToColour( background->GetValue() ) );
+				m_back->GetFrameContentPanel()->SetBackgroundColour(TypeConv::StringToColour(background->GetValue()));
 			}
 			else
 			{
-				if ( m_form->GetClassName() == wxT("Frame") )
+				if (m_form->GetClassName() == wxT("Frame"))
 				{
-					m_back->GetFrameContentPanel()->SetOwnBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_APPWORKSPACE ) );
+					m_back->GetFrameContentPanel()->SetOwnBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_APPWORKSPACE));
 				}
 				else
 				{
 					#ifdef __WXGTK__
 					wxVisualAttributes attribs = wxToolBar::GetClassDefaultAttributes();
-					m_back->GetFrameContentPanel()->SetOwnBackgroundColour( attribs.colBg );
+					m_back->GetFrameContentPanel()->SetOwnBackgroundColour(attribs.colBg);
 					#else
-					m_back->GetFrameContentPanel()->SetOwnBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_BTNFACE ) );
+					m_back->GetFrameContentPanel()->SetOwnBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE));
 					#endif
 				}
 			}
 
 			// --- [3] Title bar Setup
-			if (  m_form->GetClassName() == wxT("Frame")  ||
+			if ( m_form->GetClassName() == wxT("Frame")  ||
                   m_form->GetClassName() == wxT("Dialog") ||
-                  m_form->GetClassName() == wxT("Wizard") )
+                  m_form->GetClassName() == wxT("Wizard"))
 			{
-				m_back->SetTitle( m_form->GetPropertyAsString( wxT("title") ) );
-				long style = m_form->GetPropertyAsInteger( wxT("style") );
-				m_back->SetTitleStyle( style );
-				m_back->ShowTitleBar( (style & wxCAPTION) != 0 );
+				m_back->SetTitle(m_form->GetPropertyAsString(wxT("title")));
+				long style = m_form->GetPropertyAsInteger(wxT("style"));
+				m_back->SetTitleStyle(style);
+				m_back->ShowTitleBar((style & wxCAPTION) != 0);
 			}
 			else
 			  m_back->ShowTitleBar(false);
 
 			// --- AUI
-			if(  m_form->GetObjectTypeName() == wxT("form") )
+			if( m_form->GetObjectTypeName() == wxT("form"))
 			{
-				if(  m_form->GetPropertyAsInteger( wxT("aui_managed") ) == 1)
+				if( m_form->GetPropertyAsInteger(wxT("aui_managed")) == 1)
 				{
-					m_auipanel = new wxPanel( m_back->GetFrameContentPanel() );
-					m_auimgr = new wxAuiManager( m_auipanel, m_form->GetPropertyAsInteger( wxT("aui_manager_style") ) );
+					m_auipanel = new wxPanel(m_back->GetFrameContentPanel());
+					m_auimgr = new wxAuiManager(m_auipanel, m_form->GetPropertyAsInteger(wxT("aui_manager_style")));
 				}
 			}
 
             // --- Wizard
-            if ( m_form->GetClassName() == wxT("Wizard") )
+            if (m_form->GetClassName() == wxT("Wizard"))
             {
-                m_wizard = new Wizard( m_back->GetFrameContentPanel() );
+                m_wizard = new Wizard(m_back->GetFrameContentPanel());
 
                 bool showbutton = false;
-                PProperty pextra_style = m_form->GetProperty( wxT("extra_style") );
-                if ( pextra_style )
+                PProperty pextra_style = m_form->GetProperty(wxT("extra_style"));
+                if (pextra_style)
                 {
-                    showbutton = pextra_style->GetValue().Contains( wxT("wxWIZARD_EX_HELPBUTTON") );
+                    showbutton = pextra_style->GetValue().Contains(wxT("wxWIZARD_EX_HELPBUTTON"));
                 }
 
-                m_wizard->ShowHelpButton( showbutton );
+                m_wizard->ShowHelpButton(showbutton);
 
-                if ( !m_form->GetProperty( wxT("bitmap") )->IsNull() )
+                if (!m_form->GetProperty(wxT("bitmap"))->IsNull())
                 {
-                    wxBitmap bmp = m_form->GetPropertyAsBitmap( wxT("bitmap") );
-                    if ( bmp.IsOk() )
+                    wxBitmap bmp = m_form->GetPropertyAsBitmap(wxT("bitmap"));
+                    if (bmp.IsOk())
                     {
-                        m_wizard->SetBitmap( bmp );
+                        m_wizard->SetBitmap(bmp);
                     }
                 }
             }
@@ -576,25 +576,25 @@ void VisualEditor::Create()
 			wxWindow* statusbar = NULL;
 			wxWindow* toolbar = NULL;
 
-			for ( unsigned int i = 0; i < m_form->GetChildCount(); i++ )
+			for (unsigned int i = 0; i < m_form->GetChildCount(); i++)
 			{
-				PObjectBase child = m_form->GetChild( i );
+				PObjectBase child = m_form->GetChild(i);
 
-				if( !menubar && (m_form->GetObjectTypeName() == wxT("menubar_form")) )
+				if(!menubar && (m_form->GetObjectTypeName() == wxT("menubar_form")))
 				{
 					// main form acts as a menubar
 					menubar = m_form;
 				}
-				else if (child->GetObjectTypeName() == wxT("menubar") )
+				else if (child->GetObjectTypeName() == wxT("menubar"))
 				{
 					// Create the menubar later
 					menubar = child;
 				} else if (toolbar == nullptr &&
 				           m_form->GetObjectTypeName() == wxT("toolbar_form")) {
-					Generate( m_form, m_back->GetFrameContentPanel(), m_back->GetFrameContentPanel() );
+					Generate(m_form, m_back->GetFrameContentPanel(), m_back->GetFrameContentPanel());
 
-					ObjectBaseMap::iterator it = m_baseobjects.find( m_form.get() );
-					toolbar = wxDynamicCast( it->second, wxToolBar );
+					ObjectBaseMap::iterator it = m_baseobjects.find(m_form.get());
+					toolbar = wxDynamicCast(it->second, wxToolBar);
 
 					break;
 				}
@@ -605,89 +605,89 @@ void VisualEditor::Create()
 					{
 						// we have to put the content frame panel as parentObject in order
 						// to SetSizeHints be called.
-						if( m_auipanel )
+						if(m_auipanel)
 						{
-							Generate( child, m_auipanel, m_auipanel );
+							Generate(child, m_auipanel, m_auipanel);
 						}
-                        else if( m_wizard )
+                        else if(m_wizard)
                         {
-                            Generate( child, m_wizard, m_wizard );
+                            Generate(child, m_wizard, m_wizard);
                         }
 						else
-							Generate( child, m_back->GetFrameContentPanel(), m_back->GetFrameContentPanel() );
+							Generate(child, m_back->GetFrameContentPanel(), m_back->GetFrameContentPanel());
 
 					}
-					catch ( wxFBException& ex )
+					catch (wxFBException& ex)
 					{
-						wxLogError ( ex.what() );
+						wxLogError (ex.what());
 					}
 				}
 
 				// Attach the toolbar (if any) to the frame
-				if (child->GetClassName() == wxT("wxToolBar") )
+				if (child->GetClassName() == wxT("wxToolBar"))
 				{
-					ObjectBaseMap::iterator it = m_baseobjects.find( child.get() );
-					toolbar = wxDynamicCast( it->second, wxToolBar );
+					ObjectBaseMap::iterator it = m_baseobjects.find(child.get());
+					toolbar = wxDynamicCast(it->second, wxToolBar);
 				}
-				else if (child->GetClassName() == wxT("wxAuiToolBar") )
+				else if (child->GetClassName() == wxT("wxAuiToolBar"))
 				{
-					ObjectBaseMap::iterator it = m_baseobjects.find( child.get() );
-					toolbar = wxDynamicCast( it->second, wxAuiToolBar );
+					ObjectBaseMap::iterator it = m_baseobjects.find(child.get());
+					toolbar = wxDynamicCast(it->second, wxAuiToolBar);
 				}
 
 				// Attach the status bar (if any) to the frame
-				if ( child->GetObjectInfo()->IsSubclassOf( wxT("wxStatusBar") ) )
+				if (child->GetObjectInfo()->IsSubclassOf(wxT("wxStatusBar")))
 				{
-					ObjectBaseMap::iterator it = m_baseobjects.find( child.get() );
-					statusbar = wxDynamicCast( it->second, wxStatusBar );
+					ObjectBaseMap::iterator it = m_baseobjects.find(child.get());
+					statusbar = wxDynamicCast(it->second, wxStatusBar);
 				}
 
 				// Add toolbar(s) to AuiManager and update content
-				if( m_auimgr && toolbar )
+				if(m_auimgr && toolbar)
 				{
-					SetupAui( GetObjectBase( toolbar ), toolbar );
+					SetupAui(GetObjectBase(toolbar), toolbar);
 					toolbar = NULL;
 				}
 			}
 
-			if ( menubar || statusbar || toolbar || m_auipanel || m_wizard )
+			if (menubar || statusbar || toolbar || m_auipanel || m_wizard)
 			{
-				if( m_auimgr )
+				if(m_auimgr)
 				{
-					m_back->SetFrameWidgets( menubar, NULL, statusbar, m_auipanel );
+					m_back->SetFrameWidgets(menubar, NULL, statusbar, m_auipanel);
 				}
-                else if( m_wizard )
+                else if(m_wizard)
                 {
-                    m_back->SetFrameWidgets( menubar, NULL, NULL, m_wizard );
+                    m_back->SetFrameWidgets(menubar, NULL, NULL, m_wizard);
                 }
 				else
-					m_back->SetFrameWidgets( menubar, toolbar, statusbar, m_auipanel );
+					m_back->SetFrameWidgets(menubar, toolbar, statusbar, m_auipanel);
 			}
 
 			m_back->Layout();
 
-			if ( backSize.GetHeight() == wxDefaultCoord || backSize.GetWidth() == wxDefaultCoord )
+			if (backSize.GetHeight() == wxDefaultCoord || backSize.GetWidth() == wxDefaultCoord)
 			{
-				m_back->GetSizer()->Fit( m_back );
-				m_back->SetClientSize( m_back->GetBestSize() );
+				m_back->GetSizer()->Fit(m_back);
+				m_back->SetClientSize(m_back->GetBestSize());
 			}
 
 			// Set size after fitting so if only one dimesion is -1, it still fits that dimension
-			m_back->SetSize( backSize );
+			m_back->SetSize(backSize);
 
-			PProperty enabled( m_form->GetProperty( wxT("enabled") ) );
-			if ( enabled )
+			PProperty enabled(m_form->GetProperty(wxT("enabled")));
+			if (enabled)
 			{
-				m_back->Enable( TypeConv::StringToInt( enabled->GetValue() ) != 0 );
+				m_back->Enable(TypeConv::StringToInt(enabled->GetValue()) != 0);
 			}
 
-			PProperty hidden( m_form->GetProperty( wxT("hidden") ) );
-			if ( hidden )
+			PProperty hidden(m_form->GetProperty(wxT("hidden")));
+			if (hidden)
 			{
-				m_back->Show( TypeConv::StringToInt( hidden->GetValue() ) == 0 );
+				m_back->Show(TypeConv::StringToInt(hidden->GetValue()) == 0);
 			}
 
-			if( m_auimgr ) m_auimgr->Update();
+			if(m_auimgr) m_auimgr->Update();
 			else
 				m_back->Refresh();
 
@@ -715,33 +715,33 @@ void VisualEditor::Create()
 * @param parent wxWindow parent, necessary to instantiate a widget.
 * @param parentObject ObjectBase parent - not always the same as the wxparent (e.g. an abstract component).
 */
-void VisualEditor::Generate( PObjectBase obj, wxWindow* wxparent, wxObject* parentObject )
+void VisualEditor::Generate(PObjectBase obj, wxWindow* wxparent, wxObject* parentObject)
 {
 	// Get Component
 	PObjectInfo obj_info = obj->GetObjectInfo();
 	IComponent* comp = obj_info->GetComponent();
 
-	if ( NULL == comp )
+	if (NULL == comp)
 	{
-		THROW_WXFBEX( wxString::Format( wxT("Component for %s not found!"), obj->GetClassName().c_str() ) );
+		THROW_WXFBEX(wxString::Format(wxT("Component for %s not found!"), obj->GetClassName().c_str()));
 	}
 
 	// Create Object
-	wxObject* createdObject = comp->Create( obj.get(), wxparent );
+	wxObject* createdObject = comp->Create(obj.get(), wxparent);
 	wxWindow* createdWindow = NULL;
 	wxSizer*  createdSizer  = NULL;
 	wxWindow* vobjWindow = nullptr;
 	wxEvtHandler* vobjHandler = nullptr;
 
-	switch ( comp->GetComponentType() )
+	switch (comp->GetComponentType())
 	{
 		case COMPONENT_TYPE_WINDOW:
-			createdWindow = wxDynamicCast( createdObject, wxWindow );
-			if ( NULL == createdWindow )
+			createdWindow = wxDynamicCast(createdObject, wxWindow);
+			if (NULL == createdWindow)
 			{
-				THROW_WXFBEX( wxString::Format( wxT("Component for %s was registered as a window component, but this is not a wxWindow!"), obj->GetClassName().c_str() ) );
+				THROW_WXFBEX(wxString::Format(wxT("Component for %s was registered as a window component, but this is not a wxWindow!"), obj->GetClassName().c_str()));
 			}
-			SetupWindow( obj, createdWindow );
+			SetupWindow(obj, createdWindow);
 
 			// The event handler must be pushed after OnCreated() because that might push its own event handlers, so record it here only
 			// Because wxCollapsiblePane replaces createdWindow the target for the event handler must be recorded as well
@@ -751,21 +751,22 @@ void VisualEditor::Generate( PObjectBase obj, wxWindow* wxparent, wxObject* pare
 
 		case COMPONENT_TYPE_SIZER:
 		{
-			wxStaticBoxSizer* staticBoxSizer = wxDynamicCast( createdObject, wxStaticBoxSizer );
-			if ( staticBoxSizer )
+			wxStaticBoxSizer* staticBoxSizer = wxDynamicCast(createdObject, wxStaticBoxSizer);
+			if (staticBoxSizer)
 			{
 				createdWindow = staticBoxSizer->GetStaticBox();
 				createdSizer = staticBoxSizer;
 			}
 			else
 			{
-				createdSizer = wxDynamicCast( createdObject, wxSizer );
+				createdSizer = dynamic_cast<wxSizer *>(createdObject);
+				//createdSizer = wxDynamicCast(createdObject, wxSizer);
 			}
-			if ( NULL == createdSizer )
+			if (NULL == createdSizer)
 			{
-				THROW_WXFBEX( wxString::Format( wxT("Component for %s was registered as a sizer component, but this is not a wxSizer!"), obj->GetClassName().c_str() ) );
+				THROW_WXFBEX(wxString::Format(wxT("Component for %s was registered as a sizer component, but this is not a wxSizer!"), obj->GetClassName().c_str()));
 			}
-			SetupSizer( obj, createdSizer );
+			SetupSizer(obj, createdSizer);
 
 			if (createdWindow)
 			{
@@ -781,26 +782,26 @@ void VisualEditor::Generate( PObjectBase obj, wxWindow* wxparent, wxObject* pare
 	}
 
 	// Associate the wxObject* with the PObjectBase
-	m_wxobjects.insert( wxObjectMap::value_type( createdObject, obj ) );
-	m_baseobjects.insert( ObjectBaseMap::value_type( obj.get(), createdObject ) );
+	m_wxobjects.insert(wxObjectMap::value_type(createdObject, obj));
+	m_baseobjects.insert(ObjectBaseMap::value_type(obj.get(), createdObject));
 
 	// Access to collapsible pane
-	wxCollapsiblePane* collpane = wxDynamicCast( createdObject, wxCollapsiblePane );
-	if ( collpane != NULL ) {
+	wxCollapsiblePane* collpane = wxDynamicCast(createdObject, wxCollapsiblePane);
+	if (collpane != NULL) {
 		createdWindow = collpane->GetPane();
 		createdObject = createdWindow;
 	}
 
 	// New wxparent for the window's children
-	wxWindow* new_wxparent = ( createdWindow ? createdWindow : wxparent );
+	wxWindow* new_wxparent = (createdWindow ? createdWindow : wxparent);
 
 	// Recursively generate the children
-	for ( unsigned int i = 0; i < obj->GetChildCount(); i++ )
+	for (unsigned int i = 0; i < obj->GetChildCount(); i++)
 	{
-		Generate( obj->GetChild( i ), new_wxparent, createdObject );
+		Generate(obj->GetChild(i), new_wxparent, createdObject);
 	}
 
-	comp->OnCreated( createdObject, wxparent );
+	comp->OnCreated(createdObject, wxparent);
 
 	// Now push the event handler so that it will be the last one in the chain
 	if (vobjWindow && vobjHandler)
@@ -810,117 +811,117 @@ void VisualEditor::Generate( PObjectBase obj, wxWindow* wxparent, wxObject* pare
 
 	// If the created object is a sizer and the parent object is a window, set the sizer to the window
 	if (
-			( createdSizer != NULL && NULL != wxDynamicCast( parentObject, wxWindow ) )
+			(createdSizer != NULL && NULL != wxDynamicCast(parentObject, wxWindow))
 			||
-			( NULL == parentObject && createdSizer != NULL )
+			(NULL == parentObject && createdSizer != NULL)
 		)
 	{
-		wxparent->SetSizer( createdSizer );
-		if ( parentObject )
-			createdSizer->SetSizeHints( wxparent );
+		wxparent->SetSizer(createdSizer);
+		if (parentObject)
+			createdSizer->SetSizeHints(wxparent);
 
 		wxparent->SetAutoLayout(true);
 		wxparent->Layout();
 	}
 }
 
-void VisualEditor::SetupSizer( PObjectBase obj, wxSizer* sizer )
+void VisualEditor::SetupSizer(PObjectBase obj, wxSizer* sizer)
 {
-	wxSize minsize = obj->GetPropertyAsSize( wxT("minimum_size") );
-	if ( minsize != wxDefaultSize )
+	wxSize minsize = obj->GetPropertyAsSize(wxT("minimum_size"));
+	if (minsize != wxDefaultSize)
 	{
-		sizer->SetMinSize( minsize );
+		sizer->SetMinSize(minsize);
 		sizer->Layout();
 	}
 }
 
-void VisualEditor::SetupWindow( PObjectBase obj, wxWindow* window )
+void VisualEditor::SetupWindow(PObjectBase obj, wxWindow* window)
 {
 	// All of the properties of the wxWindow object are applied in this function
 
 	// Position
 	/* Position does nothing in wxFB - this is pointless
 	wxPoint pos;
-	PProperty ppos = obj->GetProperty( wxT("pos") );
-	if ( ppos )
+	PProperty ppos = obj->GetProperty(wxT("pos"));
+	if (ppos)
 	{
-		pos = TypeConv::StringToPoint( ppos->GetValue() );
+		pos = TypeConv::StringToPoint(ppos->GetValue());
 	}
 	*/
 
 	// Size
-	wxSize size = obj->GetPropertyAsSize( wxT("size") );
-	if ( size != wxDefaultSize )
+	wxSize size = obj->GetPropertyAsSize(wxT("size"));
+	if (size != wxDefaultSize)
 	{
-		window->SetSize( size );
+		window->SetSize(size);
 	}
 
 	// Minimum size
-	wxSize minsize = obj->GetPropertyAsSize( wxT("minimum_size") );
-	if ( minsize != wxDefaultSize )
+	wxSize minsize = obj->GetPropertyAsSize(wxT("minimum_size"));
+	if (minsize != wxDefaultSize)
 	{
-		window->SetMinSize( minsize );
+		window->SetMinSize(minsize);
 	}
 
 	// Maximum size
-	wxSize maxsize = obj->GetPropertyAsSize( wxT("maximum_size") );
-	if ( maxsize != wxDefaultSize )
+	wxSize maxsize = obj->GetPropertyAsSize(wxT("maximum_size"));
+	if (maxsize != wxDefaultSize)
 	{
-		window->SetMaxSize( maxsize );
+		window->SetMaxSize(maxsize);
 	}
 
 	// Font
-	PProperty pfont = obj->GetProperty( wxT("font") );
-	if ( pfont && !pfont->GetValue().empty() )
+	PProperty pfont = obj->GetProperty(wxT("font"));
+	if (pfont && !pfont->GetValue().empty())
 	{
-		window->SetFont( TypeConv::StringToFont( pfont->GetValue() ) );
+		window->SetFont(TypeConv::StringToFont(pfont->GetValue()));
 	}
 
 	// Foreground
-	PProperty pfg_colour = obj->GetProperty( wxT("fg") );
-	if ( pfg_colour && !pfg_colour->GetValue().empty() )
+	PProperty pfg_colour = obj->GetProperty(wxT("fg"));
+	if (pfg_colour && !pfg_colour->GetValue().empty())
 	{
-		window->SetForegroundColour( TypeConv::StringToColour( pfg_colour->GetValue() ) );
+		window->SetForegroundColour(TypeConv::StringToColour(pfg_colour->GetValue()));
 	}
 
 	// Background
-	PProperty pbg_colour = obj->GetProperty( wxT("bg") );
-	if ( pbg_colour && !pbg_colour->GetValue().empty() )
+	PProperty pbg_colour = obj->GetProperty(wxT("bg"));
+	if (pbg_colour && !pbg_colour->GetValue().empty())
 	{
-		window->SetBackgroundColour( TypeConv::StringToColour( pbg_colour->GetValue() ) );
+		window->SetBackgroundColour(TypeConv::StringToColour(pbg_colour->GetValue()));
 	}
 
 	// Extra Style
-	PProperty pextra_style = obj->GetProperty( wxT("window_extra_style") );
-	if ( pextra_style )
+	PProperty pextra_style = obj->GetProperty(wxT("window_extra_style"));
+	if (pextra_style)
 	{
-		window->SetExtraStyle( TypeConv::StringToInt( pextra_style->GetValue() ) );
+		window->SetExtraStyle(TypeConv::StringToInt(pextra_style->GetValue()));
 	}
 
 	// Enabled
-	PProperty penabled = obj->GetProperty( wxT("enabled") );
-	if ( penabled )
+	PProperty penabled = obj->GetProperty(wxT("enabled"));
+	if (penabled)
 	{
-		window->Enable( ( penabled->GetValueAsInteger() !=0 ) );
+		window->Enable((penabled->GetValueAsInteger() !=0));
 	}
 
 	// Hidden
-	PProperty phidden = obj->GetProperty( wxT("hidden") );
-	if ( phidden )
+	PProperty phidden = obj->GetProperty(wxT("hidden"));
+	if (phidden)
 	{
 		window->Show(phidden->GetValueAsInteger() == 0);
 	}
 
 	// Tooltip
-	PProperty ptooltip = obj->GetProperty( wxT("tooltip") );
-	if ( ptooltip )
+	PProperty ptooltip = obj->GetProperty(wxT("tooltip"));
+	if (ptooltip)
 	{
-		window->SetToolTip( ptooltip->GetValueAsString() );
+		window->SetToolTip(ptooltip->GetValueAsString());
 	}
 
 	//AUI
 	wxString tname = obj->GetObjectInfo()->GetObjectType()->GetName();
-	if( m_auimgr && ( tname == wxT("widget") ||
+	if(m_auimgr && (tname == wxT("widget") ||
 					tname == wxT("expanded_widget") ||
 					tname == wxT("container") ||
 					tname == wxT("notebook") ||
@@ -936,29 +937,29 @@ void VisualEditor::SetupWindow( PObjectBase obj, wxWindow* window )
 					tname == wxT("dataviewlistctrl") ||
 					tname == wxT("propgrid") ||
 					tname == wxT("propgridman") ||
-					tname == wxT("splitter") ) )
+					tname == wxT("splitter")))
 	{
-		if( obj->GetParent()->GetObjectTypeName() == wxT("form") )
+		if(obj->GetParent()->GetObjectTypeName() == wxT("form"))
 		{
 			SetupAui(obj, window);
 		}
 	}
     // Wizard
-    else if ( obj->GetParent()->GetObjectTypeName() == wxT("wizard") )
+    else if (obj->GetParent()->GetObjectTypeName() == wxT("wizard"))
     {
-        SetupWizard( obj, window, true );
+        SetupWizard(obj, window, true);
     }
 }
 
-void VisualEditor::SetupAui( PObjectBase obj, wxWindow* window )
+void VisualEditor::SetupAui(PObjectBase obj, wxWindow* window)
 {
 	wxAuiPaneInfo info;
 
 	// check whether the object contains AUI info...
-	if( !obj->GetProperty( wxT("aui_name") ) ) return;
+	if(!obj->GetProperty(wxT("aui_name"))) return;
 
-	wxString name = obj->GetPropertyAsString( wxT("aui_name") );
-	if( name != wxT("") ) info.Name( name );
+	wxString name = obj->GetPropertyAsString(wxT("aui_name"));
+	if(name != wxT("")) info.Name(name);
 
 	if (obj->GetPropertyAsInteger(wxT("center_pane")) != 0) {
 		info.CenterPane();
@@ -967,7 +968,7 @@ void VisualEditor::SetupAui( PObjectBase obj, wxWindow* window )
 		info.DefaultPane();
 	}
 
-	if( !obj->IsNull(wxT("caption"))) info.Caption(obj->GetPropertyAsString(wxT("caption")));
+	if(!obj->IsNull(wxT("caption"))) info.Caption(obj->GetPropertyAsString(wxT("caption")));
 	info.CaptionVisible(obj->GetPropertyAsInteger(wxT("caption_visible")) != 0);
 	info.CloseButton(obj->GetPropertyAsInteger(wxT("close_button")) != 0);
 	info.MaximizeButton(obj->GetPropertyAsInteger(wxT("maximize_button")) != 0);
@@ -981,29 +982,29 @@ void VisualEditor::SetupAui( PObjectBase obj, wxWindow* window )
 	info.LeftDockable(obj->GetPropertyAsInteger(wxT("LeftDockable")) != 0);
 	info.RightDockable(obj->GetPropertyAsInteger(wxT("RightDockable")) != 0);
 
-	if( !obj->IsNull(wxT("dock")) )
+	if(!obj->IsNull(wxT("dock")))
 	{
-		if( obj->GetPropertyAsString( wxT("dock") ) == wxT("Dock"))
+		if(obj->GetPropertyAsString(wxT("dock")) == wxT("Dock"))
 		{
 			info.Dock();
-			if( !obj->IsNull(wxT("docking")) )
+			if(!obj->IsNull(wxT("docking")))
 			{
-				if( obj->GetPropertyAsString(wxT("docking")) == wxT("Bottom") ) info.Bottom();
-				else if( obj->GetPropertyAsString(wxT("docking")) == wxT("Top") ) info.Top();
-				else if( obj->GetPropertyAsString(wxT("docking")) == wxT("Center") ) info.Center();
-				else if( obj->GetPropertyAsString(wxT("docking")) == wxT("Right") ) info.Right();
+				if(obj->GetPropertyAsString(wxT("docking")) == wxT("Bottom")) info.Bottom();
+				else if(obj->GetPropertyAsString(wxT("docking")) == wxT("Top")) info.Top();
+				else if(obj->GetPropertyAsString(wxT("docking")) == wxT("Center")) info.Center();
+				else if(obj->GetPropertyAsString(wxT("docking")) == wxT("Right")) info.Right();
 			}
 		}
 		else
 		{
 			info.Float();
-			info.FloatingPosition( obj->GetPropertyAsPoint( wxT("pane_position") ) );
+			info.FloatingPosition(obj->GetPropertyAsPoint(wxT("pane_position")));
 		}
 	}
 
-	if( !obj->IsNull(wxT("resize")) )
+	if(!obj->IsNull(wxT("resize")))
 	{
-		if( obj->GetPropertyAsString( wxT("resize") ) == wxT("Resizable")) info.Resizable();
+		if(obj->GetPropertyAsString(wxT("resize")) == wxT("Resizable")) info.Resizable();
 		else info.Fixed();
 	}
 
@@ -1011,108 +1012,108 @@ void VisualEditor::SetupAui( PObjectBase obj, wxWindow* window )
 	info.Movable(obj->GetPropertyAsInteger(wxT("moveable")) != 0);
 	info.Floatable(obj->GetPropertyAsInteger(wxT("floatable")) != 0);
 
-	if( !obj->GetProperty( wxT("pane_size" ) )->IsNull() ) info.FloatingSize( obj->GetPropertyAsSize( wxT("pane_size") ));
-	if( !obj->GetProperty( wxT("best_size" ) )->IsNull() ) info.BestSize( obj->GetPropertyAsSize( wxT("best_size") ) );
-	if( !obj->GetProperty( wxT("min_size" ) )->IsNull() ) info.MinSize( obj->GetPropertyAsSize( wxT("min_size") ) );
-	if( !obj->GetProperty( wxT("max_size" ) )->IsNull() ) info.MaxSize( obj->GetPropertyAsSize( wxT("max_size") ) );
+	if(!obj->GetProperty(wxT("pane_size"))->IsNull()) info.FloatingSize(obj->GetPropertyAsSize(wxT("pane_size")));
+	if(!obj->GetProperty(wxT("best_size"))->IsNull()) info.BestSize(obj->GetPropertyAsSize(wxT("best_size")));
+	if(!obj->GetProperty(wxT("min_size"))->IsNull()) info.MinSize(obj->GetPropertyAsSize(wxT("min_size")));
+	if(!obj->GetProperty(wxT("max_size"))->IsNull()) info.MaxSize(obj->GetPropertyAsSize(wxT("max_size")));
 
 	if (obj->GetPropertyAsInteger(wxT("toolbar_pane")) != 0) {
 		info.ToolbarPane();
 	}
-	if( !obj->IsNull( wxT("aui_position") ) ) info.Position( obj->GetPropertyAsInteger( wxT("aui_position") ));
-	if( !obj->IsNull( wxT("aui_row") ) ) info.Row( obj->GetPropertyAsInteger( wxT("aui_row") ));
-    if( !obj->IsNull( wxT("aui_layer") ) ) info.Layer( obj->GetPropertyAsInteger( wxT("aui_layer") ));
+	if(!obj->IsNull(wxT("aui_position"))) info.Position(obj->GetPropertyAsInteger(wxT("aui_position")));
+	if(!obj->IsNull(wxT("aui_row"))) info.Row(obj->GetPropertyAsInteger(wxT("aui_row")));
+    if(!obj->IsNull(wxT("aui_layer"))) info.Layer(obj->GetPropertyAsInteger(wxT("aui_layer")));
 	if (obj->GetPropertyAsInteger(wxT("show")) == 0) {
 		info.Hide();
 	}
 
-	m_auimgr->AddPane( window, info );
+	m_auimgr->AddPane(window, info);
 }
 
-void VisualEditor::SetupWizard( PObjectBase obj, wxWindow *window, bool pageAdding )
+void VisualEditor::SetupWizard(PObjectBase obj, wxWindow *window, bool pageAdding)
 {
-    WizardPageSimple *wizpage = wxDynamicCast( window, WizardPageSimple );
+    WizardPageSimple *wizpage = wxDynamicCast(window, WizardPageSimple);
 
-    if ( pageAdding )
+    if (pageAdding)
     {
-        m_wizard->AddPage( wizpage );
-        m_wizard->Connect( wxID_ANY, wxFB_EVT_WIZARD_PAGE_CHANGED, WizardEventHandler( VisualEditor::OnWizardPageChanged ) );
+        m_wizard->AddPage(wizpage);
+        m_wizard->Connect(wxID_ANY, wxFB_EVT_WIZARD_PAGE_CHANGED, WizardEventHandler(VisualEditor::OnWizardPageChanged));
     }
     else
     {
-        WizardEvent eventChanged( wxFB_EVT_WIZARD_PAGE_CHANGED, m_wizard->GetId(), false, wizpage );
-        eventChanged.SetInt( 1 );
-        wizpage->GetEventHandler()->ProcessEvent( eventChanged );
+        WizardEvent eventChanged(wxFB_EVT_WIZARD_PAGE_CHANGED, m_wizard->GetId(), false, wizpage);
+        eventChanged.SetInt(1);
+        wizpage->GetEventHandler()->ProcessEvent(eventChanged);
 
-        bool wizBmpOk = !obj->GetParent()->GetProperty( wxT("bitmap") )->IsNull();
-        bool pgeBmpOk = !obj->GetProperty( wxT("bitmap") )->IsNull();
-        wxBitmap wizBmp = obj->GetParent()->GetPropertyAsBitmap( wxT("bitmap") );
-        wxBitmap pgeBmp = obj->GetPropertyAsBitmap( wxT("bitmap") );
+        bool wizBmpOk = !obj->GetParent()->GetProperty(wxT("bitmap"))->IsNull();
+        bool pgeBmpOk = !obj->GetProperty(wxT("bitmap"))->IsNull();
+        wxBitmap wizBmp = obj->GetParent()->GetPropertyAsBitmap(wxT("bitmap"));
+        wxBitmap pgeBmp = obj->GetPropertyAsBitmap(wxT("bitmap"));
 
-        if ( pgeBmpOk && pgeBmp.IsOk() )
+        if (pgeBmpOk && pgeBmp.IsOk())
         {
-            m_wizard->SetBitmap( pgeBmp );
+            m_wizard->SetBitmap(pgeBmp);
         }
-        else if ( wizBmpOk && wizBmp.IsOk() )
+        else if (wizBmpOk && wizBmp.IsOk())
         {
-            m_wizard->SetBitmap( wizBmp );
+            m_wizard->SetBitmap(wizBmp);
         }
-        size_t selection = m_wizard->GetPageIndex( wizpage );
-        m_wizard->SetSelection( selection );
+        size_t selection = m_wizard->GetPageIndex(wizpage);
+        m_wizard->SetSelection(selection);
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
-void VisualEditor::PreventOnSelected( bool prevent )
+void VisualEditor::PreventOnSelected(bool prevent)
 {
 	m_stopSelectedEvent = prevent;
 }
 
-void VisualEditor::PreventOnModified( bool prevent )
+void VisualEditor::PreventOnModified(bool prevent)
 {
 	m_stopModifiedEvent = prevent;
 }
 
-void VisualEditor::OnProjectLoaded ( wxFBEvent &)
+void VisualEditor::OnProjectLoaded (wxFBEvent &)
 {
   Create();
 }
 
-void VisualEditor::OnProjectSaved  ( wxFBEvent & )
+void VisualEditor::OnProjectSaved  (wxFBEvent &)
 {
   //Create();
 }
 
-void VisualEditor::OnObjectSelected( wxFBObjectEvent &event )
+void VisualEditor::OnObjectSelected(wxFBObjectEvent &event)
 {
 	// It is only necessary to Create() if the selected object is on a different form
-	if ( AppData()->GetSelectedForm() != m_form )
+	if (AppData()->GetSelectedForm() != m_form)
 	{
 		Create();
 	}
 
 	// Get the ObjectBase from the event
 	PObjectBase obj = event.GetFBObject();
-	if ( !obj )
+	if (!obj)
 	{
 		// Strange...
-		LogDebug( wxT("The event object is NULL - why?") );
+		LogDebug(wxT("The event object is NULL - why?"));
 		return;
 	}
 
 	// highlight parent toolbar instead of its children
-	PObjectBase toolbar = obj->FindNearAncestor( wxT("toolbar") );
-	if( !toolbar ) toolbar = obj->FindNearAncestor( wxT("toolbar_form") );
-	if( toolbar ) obj = toolbar;
+	PObjectBase toolbar = obj->FindNearAncestor(wxT("toolbar"));
+	if(!toolbar) toolbar = obj->FindNearAncestor(wxT("toolbar_form"));
+	if(toolbar) obj = toolbar;
 
 	// Make sure this is a visible object
-	ObjectBaseMap::iterator it = m_baseobjects.find( obj.get() );
-	if ( m_baseobjects.end() == it )
+	ObjectBaseMap::iterator it = m_baseobjects.find(obj.get());
+	if (m_baseobjects.end() == it)
 	{
-		m_back->SetSelectedSizer( NULL );
-		m_back->SetSelectedItem( NULL );
-		m_back->SetSelectedObject( PObjectBase() );
-		m_back->SetSelectedPanel( NULL );
+		m_back->SetSelectedSizer(NULL);
+		m_back->SetSelectedItem(NULL);
+		m_back->SetSelectedObject(PObjectBase());
+		m_back->SetSelectedPanel(NULL);
 		m_back->Refresh();
 		return;
 	}
@@ -1122,49 +1123,49 @@ void VisualEditor::OnObjectSelected( wxFBObjectEvent &event )
 
 	int componentType = COMPONENT_TYPE_ABSTRACT;
 	IComponent *comp = obj->GetObjectInfo()->GetComponent();
-	if ( comp )
+	if (comp)
 	{
 		componentType = comp->GetComponentType();
 
 		// Fire selection event in plugin
-		if ( !m_stopSelectedEvent )
+		if (!m_stopSelectedEvent)
 		{
-			comp->OnSelected( item );
+			comp->OnSelected(item);
 		}
 	}
 
-    if ( obj->GetObjectInfo()->GetObjectTypeName() == wxT("wizardpagesimple") )
+    if (obj->GetObjectInfo()->GetObjectTypeName() == wxT("wizardpagesimple"))
     {
-        ObjectBaseMap::iterator pageIt = m_baseobjects.find( obj.get() );
-        WizardPageSimple* wizpage = wxDynamicCast( pageIt->second, WizardPageSimple );
+        ObjectBaseMap::iterator pageIt = m_baseobjects.find(obj.get());
+        WizardPageSimple* wizpage = wxDynamicCast(pageIt->second, WizardPageSimple);
 
-        SetupWizard( obj, wizpage );
+        SetupWizard(obj, wizpage);
     }
 
-	if ( componentType != COMPONENT_TYPE_WINDOW && componentType != COMPONENT_TYPE_SIZER )
+	if (componentType != COMPONENT_TYPE_WINDOW && componentType != COMPONENT_TYPE_SIZER)
 	{
 		item = NULL;
 	}
 
 	// Fire selection event in plugin for all parents
-	if ( !m_stopSelectedEvent )
+	if (!m_stopSelectedEvent)
 	{
 		PObjectBase parent = obj->GetParent();
-		while ( parent )
+		while (parent)
 		{
 			IComponent* parentComp = parent->GetObjectInfo()->GetComponent();
-			if ( parentComp )
+			if (parentComp)
 			{
-				ObjectBaseMap::iterator parentIt = m_baseobjects.find( parent.get() );
-				if ( parentIt != m_baseobjects.end() )
+				ObjectBaseMap::iterator parentIt = m_baseobjects.find(parent.get());
+				if (parentIt != m_baseobjects.end())
 				{
-                    if ( parent->GetObjectInfo()->GetObjectTypeName() == wxT("wizardpagesimple") )
+                    if (parent->GetObjectInfo()->GetObjectTypeName() == wxT("wizardpagesimple"))
                     {
-                        WizardPageSimple* wizpage = wxDynamicCast( parentIt->second, WizardPageSimple );
+                        WizardPageSimple* wizpage = wxDynamicCast(parentIt->second, WizardPageSimple);
 
-                        SetupWizard( parent, wizpage );
+                        SetupWizard(parent, wizpage);
                     }
-					parentComp->OnSelected( parentIt->second );
+					parentComp->OnSelected(parentIt->second);
 				}
 			}
 			parent = parent->GetParent();
@@ -1174,16 +1175,16 @@ void VisualEditor::OnObjectSelected( wxFBObjectEvent &event )
 	// Look for the active panel - this is where the boxes will be drawn during OnPaint
 	// This is the closest parent of type COMPONENT_TYPE_WINDOW
 	PObjectBase nextParent = obj->GetParent();
-	while ( nextParent )
+	while (nextParent)
 	{
 		IComponent* parentComp = nextParent->GetObjectInfo()->GetComponent();
-		if ( !parentComp )
+		if (!parentComp)
 		{
 			nextParent.reset();
 			break;
 		}
 
-		if ( parentComp->GetComponentType() == COMPONENT_TYPE_WINDOW )
+		if (parentComp->GetComponentType() == COMPONENT_TYPE_WINDOW)
 		{
 			break;
 		}
@@ -1202,10 +1203,10 @@ void VisualEditor::OnObjectSelected( wxFBObjectEvent &event )
 
 	// Get the panel to draw on
 	wxWindow* selPanel = NULL;
-	if ( nextParent )
+	if (nextParent)
 	{
-		it = m_baseobjects.find( nextParent.get() );
-		if ( m_baseobjects.end() == it )
+		it = m_baseobjects.find(nextParent.get());
+		if (m_baseobjects.end() == it)
 		{
 			selPanel = m_back->GetFrameContentPanel();
 		}
@@ -1230,24 +1231,24 @@ void VisualEditor::OnObjectSelected( wxFBObjectEvent &event )
 	// If it is a sizer, save it
 	wxSizer* sizer = NULL;
 	PObjectBase nextObj = obj->GetParent();
-	while ( nextObj )
+	while (nextObj)
 	{
 		IComponent* nextComp = nextObj->GetObjectInfo()->GetComponent();
-		if ( !nextComp )
+		if (!nextComp)
 		{
 			break;
 		}
 
-		if ( nextComp->GetComponentType() == COMPONENT_TYPE_SIZER )
+		if (nextComp->GetComponentType() == COMPONENT_TYPE_SIZER)
 		{
-			it = m_baseobjects.find( nextObj.get() );
-			if ( it != m_baseobjects.end() )
+			it = m_baseobjects.find(nextObj.get());
+			if (it != m_baseobjects.end())
 			{
-				sizer = wxDynamicCast( it->second, wxSizer );
+				sizer = wxDynamicCast(it->second, wxSizer);
 			}
 			break;
 		}
-		else if ( nextComp->GetComponentType() == COMPONENT_TYPE_WINDOW )
+		else if (nextComp->GetComponentType() == COMPONENT_TYPE_WINDOW)
 		{
 			break;
 		}
@@ -1255,76 +1256,76 @@ void VisualEditor::OnObjectSelected( wxFBObjectEvent &event )
 		nextObj = nextObj->GetParent();
 	}
 
-	m_back->SetSelectedSizer( sizer );
-	m_back->SetSelectedItem( item );
-	m_back->SetSelectedObject( obj );
-	m_back->SetSelectedPanel( selPanel );
+	m_back->SetSelectedSizer(sizer);
+	m_back->SetSelectedItem(item);
+	m_back->SetSelectedObject(obj);
+	m_back->SetSelectedPanel(selPanel);
 	m_back->Refresh();
 }
 
-void VisualEditor::OnObjectCreated( wxFBObjectEvent &)
+void VisualEditor::OnObjectCreated(wxFBObjectEvent &)
 {
 	Create();
 }
 
-void VisualEditor::OnObjectRemoved( wxFBObjectEvent & )
+void VisualEditor::OnObjectRemoved(wxFBObjectEvent &)
 {
 	Create();
 }
 
-void VisualEditor::OnPropertyModified( wxFBPropertyEvent &)
+void VisualEditor::OnPropertyModified(wxFBPropertyEvent &)
 {
-	if ( !m_stopModifiedEvent )
+	if (!m_stopModifiedEvent)
 	{
 		PObjectBase aux = m_back->GetSelectedObject();
 		Create();
-		if ( aux )
+		if (aux)
 		{
-			wxFBObjectEvent objEvent( wxEVT_FB_OBJECT_SELECTED, aux );
-			this->ProcessEvent( objEvent );
+			wxFBObjectEvent objEvent(wxEVT_FB_OBJECT_SELECTED, aux);
+			this->ProcessEvent(objEvent);
 		}
 		UpdateVirtualSize();
 	}
 }
 
-void VisualEditor::OnProjectRefresh( wxFBEvent &)
+void VisualEditor::OnProjectRefresh(wxFBEvent &)
 {
 	Create();
 }
 
 void VisualEditor::OnAuiScaner(wxTimerEvent&) {
-	if( m_auimgr )
+	if(m_auimgr)
 	{
-		ScanPanes( m_back->GetFrameContentPanel() );
+		ScanPanes(m_back->GetFrameContentPanel());
 	}
 }
 
-IMPLEMENT_CLASS( DesignerWindow, wxInnerFrame)
+IMPLEMENT_CLASS(DesignerWindow, wxInnerFrame)
 
 BEGIN_EVENT_TABLE(DesignerWindow,wxInnerFrame)
   EVT_PAINT(DesignerWindow::OnPaint)
 END_EVENT_TABLE()
 
-DesignerWindow::DesignerWindow( wxWindow *parent, int id, const wxPoint& pos, const wxSize &size, long style, const wxString & /*name*/ )
+DesignerWindow::DesignerWindow(wxWindow *parent, int id, const wxPoint& pos, const wxSize &size, long style, const wxString & /*name*/)
 :
 wxInnerFrame(parent, id, pos, size, style)
 {
 	ShowTitleBar(false);
-	SetGrid( 10, 10 );
+	SetGrid(10, 10);
 	m_selSizer = NULL;
 	m_selItem = NULL;
 	m_actPanel = NULL;
-	SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_BTNFACE ) );
+	SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE));
 
 	GetFrameContentPanel()->PushEventHandler(new HighlightPaintHandler(GetFrameContentPanel()));
 }
 
 DesignerWindow::~DesignerWindow()
 {
-    GetFrameContentPanel()->PopEventHandler( true );
+    GetFrameContentPanel()->PopEventHandler(true);
 }
 
-void DesignerWindow::SetGrid( int x, int y )
+void DesignerWindow::SetGrid(int x, int y)
 {
 	m_x = x;
 	m_y = y;
@@ -1336,52 +1337,52 @@ void DesignerWindow::OnPaint(wxPaintEvent &event)
 	// when they extend beyond the edges of the content panel
 	wxPaintDC dc(this);
 
-	if ( m_actPanel == GetFrameContentPanel() )
+	if (m_actPanel == GetFrameContentPanel())
 	{
 		wxPoint origin = GetFrameContentPanel()->GetPosition();
-		dc.SetDeviceOrigin( origin.x, origin.y );
-		HighlightSelection( dc );
+		dc.SetDeviceOrigin(origin.x, origin.y);
+		HighlightSelection(dc);
 	}
 
 	event.Skip();
 }
 
-void DesignerWindow::DrawRectangle( wxDC& dc, const wxPoint& point, const wxSize& size, PObjectBase object )
+void DesignerWindow::DrawRectangle(wxDC& dc, const wxPoint& point, const wxSize& size, PObjectBase object)
 {
-	bool isSizer = ( object->GetObjectInfo()->IsSubclassOf( wxT("sizer") ) || object->GetObjectInfo()->IsSubclassOf( wxT("gbsizer") ) );
-	int min = ( isSizer ? 0 : 1 );
+	bool isSizer = (object->GetObjectInfo()->IsSubclassOf(wxT("sizer")) || object->GetObjectInfo()->IsSubclassOf(wxT("gbsizer")));
+	int min = (isSizer ? 0 : 1);
 
-	int border = object->GetParent()->GetPropertyAsInteger( wxT("border") );
-	if ( border == 0 )
+	int border = object->GetParent()->GetPropertyAsInteger(wxT("border"));
+	if (border == 0)
 	{
 		border = min;
 	}
 
-	int flag = object->GetParent()->GetPropertyAsInteger( wxT("flag") );
-	int topBorder = 	( flag & wxTOP ) 	== 0 ? min : border;
-	int bottomBorder = 	( flag & wxBOTTOM ) == 0 ? min : border;
-	int rightBorder = 	( flag & wxRIGHT ) 	== 0 ? min : border;
-	int leftBorder = 	( flag & wxLEFT ) 	== 0 ? min : border;
+	int flag = object->GetParent()->GetPropertyAsInteger(wxT("flag"));
+	int topBorder = 	(flag & wxTOP) 	== 0 ? min : border;
+	int bottomBorder = 	(flag & wxBOTTOM) == 0 ? min : border;
+	int rightBorder = 	(flag & wxRIGHT) 	== 0 ? min : border;
+	int leftBorder = 	(flag & wxLEFT) 	== 0 ? min : border;
 
-	dc.DrawRectangle( 	point.x - leftBorder,
+	dc.DrawRectangle(	point.x - leftBorder,
 						point.y - topBorder,
 						size.x + leftBorder + rightBorder,
-						size.y + topBorder + bottomBorder );
+						size.y + topBorder + bottomBorder);
 }
 
-void DesignerWindow::HighlightSelection( wxDC& dc )
+void DesignerWindow::HighlightSelection(wxDC& dc)
 {
 	// do not highlight if AUI is used in floating mode
-	VisualEditor *editor = wxDynamicCast( GetParent(), VisualEditor );
-	if( editor && editor->m_auimgr )
+	VisualEditor *editor = wxDynamicCast(GetParent(), VisualEditor);
+	if(editor && editor->m_auimgr)
 	{
-		wxWindow *windowItem =  wxDynamicCast( m_selItem, wxWindow );
-		while( windowItem )
+		wxWindow *windowItem =  wxDynamicCast(m_selItem, wxWindow);
+		while(windowItem)
 		{
-			wxAuiPaneInfo info = editor->m_auimgr->GetPane( windowItem );
-			if( info.IsOk() )
+			wxAuiPaneInfo info = editor->m_auimgr->GetPane(windowItem);
+			if(info.IsOk())
 			{
-				if( info.IsFloating() ) return;
+				if(info.IsFloating()) return;
 				else break;
 			}
 			windowItem = windowItem->GetParent();
@@ -1390,7 +1391,7 @@ void DesignerWindow::HighlightSelection( wxDC& dc )
 
 	wxSize size;
 	PObjectBase object = m_selObj.lock();
-	if ( m_selSizer )
+	if (m_selSizer)
 	{
 		wxScrolledWindow* scrolwin = wxDynamicCast(m_selSizer->GetContainingWindow (), wxScrolledWindow);
 		if(scrolwin)
@@ -1416,24 +1417,24 @@ void DesignerWindow::HighlightSelection( wxDC& dc )
 		size = m_selSizer->GetSize();
 
 		wxPen bluePen(*wxBLUE, 1, wxPENSTYLE_SOLID);
-		dc.SetPen( bluePen );
-		dc.SetBrush( *wxTRANSPARENT_BRUSH );
-		PObjectBase sizerParent = object->FindNearAncestorByBaseClass( wxT("sizer") );
-		if( !sizerParent ) sizerParent = object->FindNearAncestorByBaseClass( wxT("gbsizer") );
-		if ( sizerParent && sizerParent->GetParent() )
+		dc.SetPen(bluePen);
+		dc.SetBrush(*wxTRANSPARENT_BRUSH);
+		PObjectBase sizerParent = object->FindNearAncestorByBaseClass(wxT("sizer"));
+		if(!sizerParent) sizerParent = object->FindNearAncestorByBaseClass(wxT("gbsizer"));
+		if (sizerParent && sizerParent->GetParent())
 		{
-			DrawRectangle( dc, point, size, sizerParent );
+			DrawRectangle(dc, point, size, sizerParent);
 		}
 	}
 
-	if ( m_selItem )
+	if (m_selItem)
 	{
 		wxPoint point;
 		bool shown;
 
-		wxWindow* windowItem = wxDynamicCast( m_selItem, wxWindow );
-		wxSizer* sizerItem = wxDynamicCast( m_selItem, wxSizer );
-		if ( NULL != windowItem )
+		wxWindow* windowItem = wxDynamicCast(m_selItem, wxWindow);
+		wxSizer* sizerItem = wxDynamicCast(m_selItem, wxSizer);
+		if (NULL != windowItem)
 		{
 			// In case the windowItem is inside a wxStaticBoxSizer its position is relative to
 			// the wxStaticBox which is NOT m_actPanel in on which the highlight is painted,
@@ -1446,7 +1447,7 @@ void DesignerWindow::HighlightSelection( wxDC& dc )
 			size = windowItem->GetSize();
 			shown = windowItem->IsShown();
 		}
-		else if ( NULL != sizerItem )
+		else if (NULL != sizerItem)
 		{
 			point = sizerItem->GetPosition();
 			size = sizerItem->GetSize();
@@ -1457,12 +1458,12 @@ void DesignerWindow::HighlightSelection( wxDC& dc )
 			return;
 		}
 
-		if ( shown )
+		if (shown)
 		{
 			wxPen redPen(*wxRED, 1, wxPENSTYLE_SOLID);
-			dc.SetPen( redPen );
-			dc.SetBrush( *wxTRANSPARENT_BRUSH );
-			DrawRectangle( dc, point, size, object );
+			dc.SetPen(redPen);
+			dc.SetBrush(*wxTRANSPARENT_BRUSH);
+			DrawRectangle(dc, point, size, object);
 		}
 	}
 }
@@ -1471,72 +1472,72 @@ wxMenu* DesignerWindow::GetMenuFromObject(PObjectBase menu)
 {
 	int lastMenuId = wxID_HIGHEST + 1;
 	wxMenu* menuWidget = new wxMenu();
-	for ( unsigned int j = 0; j < menu->GetChildCount(); j++ )
+	for (unsigned int j = 0; j < menu->GetChildCount(); j++)
 	{
-		PObjectBase menuItem = menu->GetChild( j );
-		if ( menuItem->GetObjectTypeName() == wxT("submenu") )
+		PObjectBase menuItem = menu->GetChild(j);
+		if (menuItem->GetObjectTypeName() == wxT("submenu"))
 		{
-			wxMenuItem *item = new wxMenuItem( 	menuWidget,
+			wxMenuItem *item = new wxMenuItem(	menuWidget,
 												lastMenuId++,
-												menuItem->GetPropertyAsString( wxT("label") ),
-												menuItem->GetPropertyAsString( wxT("help") ),
+												menuItem->GetPropertyAsString(wxT("label")),
+												menuItem->GetPropertyAsString(wxT("help")),
 												wxITEM_NORMAL,
-												GetMenuFromObject( menuItem )
+												GetMenuFromObject(menuItem)
 											);
-			item->SetBitmap( menuItem->GetPropertyAsBitmap( wxT("bitmap") ) );
-			menuWidget->Append( item );
+			item->SetBitmap(menuItem->GetPropertyAsBitmap(wxT("bitmap")));
+			menuWidget->Append(item);
 		}
-		else if ( menuItem->GetClassName() == wxT("separator") )
+		else if (menuItem->GetClassName() == wxT("separator"))
 		{
 			menuWidget->AppendSeparator();
 		}
 		else
 		{
-			wxString label = menuItem->GetPropertyAsString( wxT("label") );
-			wxString shortcut = menuItem->GetPropertyAsString( wxT("shortcut") );
-			if ( !shortcut.IsEmpty() )
+			wxString label = menuItem->GetPropertyAsString(wxT("label"));
+			wxString shortcut = menuItem->GetPropertyAsString(wxT("shortcut"));
+			if (!shortcut.IsEmpty())
 			{
 				label = label + wxChar('\t') + shortcut;
 			}
 
-			wxMenuItem *item = new wxMenuItem( 	menuWidget,
+			wxMenuItem *item = new wxMenuItem(	menuWidget,
 												lastMenuId++,
 												label,
-												menuItem->GetPropertyAsString( wxT("help") ),
-												( wxItemKind ) menuItem->GetPropertyAsInteger( wxT("kind") )
+												menuItem->GetPropertyAsString(wxT("help")),
+												(wxItemKind) menuItem->GetPropertyAsInteger(wxT("kind"))
 											);
 
-			if ( !menuItem->GetProperty( wxT("bitmap") )->IsNull() )
+			if (!menuItem->GetProperty(wxT("bitmap"))->IsNull())
 			{
 				wxBitmap unchecked = wxNullBitmap;
-				if ( !menuItem->GetProperty( wxT("unchecked_bitmap") )->IsNull() )
+				if (!menuItem->GetProperty(wxT("unchecked_bitmap"))->IsNull())
 				{
-					unchecked = menuItem->GetPropertyAsBitmap( wxT("unchecked_bitmap") );
+					unchecked = menuItem->GetPropertyAsBitmap(wxT("unchecked_bitmap"));
 				}
 				#ifdef __WXMSW__
-					item->SetBitmaps( menuItem->GetPropertyAsBitmap( wxT("bitmap") ), unchecked );
-				#elif defined( __WXGTK__ )
-					item->SetBitmap( menuItem->GetPropertyAsBitmap( wxT("bitmap") ) );
+					item->SetBitmaps(menuItem->GetPropertyAsBitmap(wxT("bitmap")), unchecked);
+				#elif defined(__WXGTK__)
+					item->SetBitmap(menuItem->GetPropertyAsBitmap(wxT("bitmap")));
 				#endif
 			}
 			else
 			{
-				if ( !menuItem->GetProperty( wxT("unchecked_bitmap") )->IsNull() )
+				if (!menuItem->GetProperty(wxT("unchecked_bitmap"))->IsNull())
 				{
 					#ifdef __WXMSW__
-						item->SetBitmaps( wxNullBitmap,  menuItem->GetPropertyAsBitmap( wxT("unchecked_bitmap") ) );
+						item->SetBitmaps(wxNullBitmap,  menuItem->GetPropertyAsBitmap(wxT("unchecked_bitmap")));
 					#endif
 				}
 			}
 
-			menuWidget->Append( item );
+			menuWidget->Append(item);
 
 			if (item->GetKind() == wxITEM_CHECK &&
 			    menuItem->GetPropertyAsInteger(wxT("checked")) != 0) {
-				item->Check( true );
+				item->Check(true);
 			}
 
-			item->Enable( ( menuItem->GetPropertyAsInteger( wxT("enabled") ) != 0 ) );
+			item->Enable((menuItem->GetPropertyAsInteger(wxT("enabled")) != 0));
 		}
 	}
 
@@ -1548,24 +1549,24 @@ void DesignerWindow::SetFrameWidgets(PObjectBase menubar, wxWindow *toolbar, wxW
 	wxWindow *contentPanel = GetFrameContentPanel();
 	Menubar *mbWidget = NULL;
 
-	if ( menubar )
+	if (menubar)
 	{
 		mbWidget = new Menubar(contentPanel, wxID_ANY);
-		for ( unsigned int i = 0; i < menubar->GetChildCount(); i++ )
+		for (unsigned int i = 0; i < menubar->GetChildCount(); i++)
 		{
-			PObjectBase menu = menubar->GetChild( i );
-			wxMenu *menuWidget = GetMenuFromObject( menu );
-			mbWidget->AppendMenu( menu->GetPropertyAsString( wxT("label") ), menuWidget );
+			PObjectBase menu = menubar->GetChild(i);
+			wxMenu *menuWidget = GetMenuFromObject(menu);
+			mbWidget->AppendMenu(menu->GetPropertyAsString(wxT("label")), menuWidget);
 		}
 	}
 
 	wxSizer *mainSizer = contentPanel->GetSizer();
 
-	contentPanel->SetSizer( NULL, false );
+	contentPanel->SetSizer(NULL, false);
 
-	wxSizer *dummySizer = new wxBoxSizer( wxVERTICAL );
+	wxSizer *dummySizer = new wxBoxSizer(wxVERTICAL);
 
-	if ( mbWidget )
+	if (mbWidget)
 	{
 		dummySizer->Add(mbWidget, 0, wxEXPAND | wxTOP | wxBOTTOM, 0);
 		dummySizer->Add(new wxStaticLine(contentPanel, wxID_ANY), 0, wxEXPAND | wxALL, 0);
@@ -1574,15 +1575,15 @@ void DesignerWindow::SetFrameWidgets(PObjectBase menubar, wxWindow *toolbar, wxW
 	wxSizer* contentSizer = dummySizer;
 	if (toolbar)
 	{
-		if ( (toolbar->GetWindowStyle() & wxTB_VERTICAL) != 0 )
+		if ((toolbar->GetWindowStyle() & wxTB_VERTICAL) != 0)
 		{
-			wxSizer* horiz = new wxBoxSizer( wxHORIZONTAL );
+			wxSizer* horiz = new wxBoxSizer(wxHORIZONTAL);
 			horiz->Add(toolbar, 0, wxEXPAND | wxALL, 0);
 
-			wxSizer* vert = new wxBoxSizer( wxVERTICAL );
-			horiz->Add( vert, 1, wxEXPAND, 0 );
+			wxSizer* vert = new wxBoxSizer(wxVERTICAL);
+			horiz->Add(vert, 1, wxEXPAND, 0);
 
-			dummySizer->Add( horiz, 1, wxEXPAND, 0);
+			dummySizer->Add(horiz, 1, wxEXPAND, 0);
 
 			contentSizer = vert;
 		}
@@ -1599,7 +1600,7 @@ void DesignerWindow::SetFrameWidgets(PObjectBase menubar, wxWindow *toolbar, wxW
 	else if (mainSizer)
 	{
 		contentSizer->Add(mainSizer, 1, wxEXPAND | wxALL, 0);
-		if ( mainSizer->GetChildren().IsEmpty() )
+		if (mainSizer->GetChildren().IsEmpty())
 		{
 			// Sizers do not expand if they are empty
 			mainSizer->AddStretchSpacer(1);
@@ -1610,7 +1611,7 @@ void DesignerWindow::SetFrameWidgets(PObjectBase menubar, wxWindow *toolbar, wxW
 
 	if (statusbar)
 	{
-		if( auipanel ) statusbar->Reparent( contentPanel );
+		if(auipanel) statusbar->Reparent(contentPanel);
 		contentSizer->Add(statusbar, 0, wxEXPAND | wxALL, 0);
 	}
 
